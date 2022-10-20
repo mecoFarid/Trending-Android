@@ -1,0 +1,19 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    id 'com.android.application' version '7.3.1' apply false
+    id 'com.android.library' version '7.3.1' apply false
+    id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
+}
+
+ext {
+    // Kotlin
+    kotlin = "1.9.0"
+
+    // Android UI
+    appCompat = "1.5.1"
+    materialUi = "1.7.0"
+    constraintLayout = "2.1.4"
+
+    // Testing
+    jUnit = "4.13.2"
+}
