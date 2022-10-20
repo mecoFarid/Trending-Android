@@ -1,12 +1,12 @@
 package com.mecofarid.sadapayallstar.features.repo.data
 
-import com.mecofarid.sadapayallstar.common.Datasource
-import com.mecofarid.sadapayallstar.common.Mapper
-import com.mecofarid.sadapayallstar.common.Query
-import com.mecofarid.sadapayallstar.common.Operation
-import com.mecofarid.sadapayallstar.common.DataException.DataNotFoundException
-import com.mecofarid.sadapayallstar.features.repo.data.local.entity.RepoLocalEntity
-import com.mecofarid.sadapayallstar.features.repo.data.remote.entity.RepoRemoteEntity
+import com.mecofarid.sadapayallstar.common.data.Datasource
+import com.mecofarid.sadapayallstar.common.data.Mapper
+import com.mecofarid.sadapayallstar.common.data.Query
+import com.mecofarid.sadapayallstar.common.data.Operation
+import com.mecofarid.sadapayallstar.common.data.DataException.DataNotFoundException
+import com.mecofarid.sadapayallstar.features.repo.data.source.local.entity.RepoLocalEntity
+import com.mecofarid.sadapayallstar.features.repo.data.source.remote.entity.RepoRemoteEntity
 import com.mecofarid.sadapayallstar.features.repo.domain.model.Repo
 
 class RepoRepository(

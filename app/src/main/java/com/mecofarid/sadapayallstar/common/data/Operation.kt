@@ -1,4 +1,4 @@
-package com.mecofarid.sadapayallstar.common
+package com.mecofarid.sadapayallstar.common.data
 
 sealed class Operation{
 

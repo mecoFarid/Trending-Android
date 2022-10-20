@@ -14,6 +14,12 @@ ext {
     materialUi = "1.7.0"
     constraintLayout = "2.1.4"
 
+    // Room
+    room = "2.4.3"
+
+    // Retrofit
+    retrofit = "2.9.0"
+
     // Testing
     jUnit = "4.13.2"
 }

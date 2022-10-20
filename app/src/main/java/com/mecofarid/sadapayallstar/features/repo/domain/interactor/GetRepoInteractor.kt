@@ -1,7 +1,7 @@
 package com.mecofarid.sadapayallstar.features.repo.domain.interactor
 
-import com.mecofarid.sadapayallstar.common.Operation
-import com.mecofarid.sadapayallstar.common.Query
+import com.mecofarid.sadapayallstar.common.data.Operation
+import com.mecofarid.sadapayallstar.common.data.Query
 import com.mecofarid.sadapayallstar.features.repo.data.RepoRepository
 
 class GetRepoInteractor(private val repoRepository: RepoRepository) {
