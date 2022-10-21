@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace 'com.mecofarid.trending'
-    compileSdk 33
+    compileSdk rootProject.compileSdk
 
     defaultConfig {
         applicationId "com.mecofarid.trending"
-        minSdk 21
-        targetSdk 33
+        minSdk rootProject.minSdk
+        targetSdk rootProject.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -65,8 +65,13 @@ dependencies {
 
     // Test
     testImplementation "junit:junit:$jUnit"
-    androidTestImplementation "androidx.test.ext:junit:$jUnitAndroidX"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
     testImplementation "io.mockk:mockk:$mockk"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinCoroutines"
+    testImplementation "androidx.test:core-ktx:$kotlinAndroidTest"
+    testImplementation "androidx.test.ext:junit:$jUnitAndroidX"
+    testImplementation project(':shared-test')
+    androidTestImplementation project(':shared-test')
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinCoroutines"
+    androidTestImplementation "androidx.test.ext:junit:$jUnitAndroidX"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
 }

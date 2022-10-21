@@ -2,7 +2,7 @@ package com.mecofarid.trending.features.repo.data.source.remote
 
 import com.mecofarid.trending.anyList
 import com.mecofarid.trending.common.data.Query
-import com.mecofarid.trending.features.repo.anyRepoRemoteEntity
+import com.mecofarid.test.feature.repo.anyRepoRemoteEntity
 import com.mecofarid.trending.features.repo.data.query.GetAllTrendingReposQuery
 import com.mecofarid.trending.features.repo.data.source.remote.entity.RepoResponseRemoteEntity
 import com.mecofarid.trending.features.repo.data.source.remote.service.RepoService

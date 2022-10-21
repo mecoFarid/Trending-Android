@@ -1,12 +1,11 @@
 package com.mecofarid.trending.features.repo.data.mapper
 
 import com.mecofarid.trending.common.data.Mapper
-import com.mecofarid.trending.features.repo.anyOwnerLocalEntity
-import com.mecofarid.trending.features.repo.anyOwnerRemoteEntity
-import com.mecofarid.trending.features.repo.anyRepoRemoteEntity
+import com.mecofarid.test.feature.repo.anyOwnerLocalEntity
+import com.mecofarid.test.feature.repo.anyOwnerRemoteEntity
+import com.mecofarid.test.feature.repo.anyRepoRemoteEntity
 import com.mecofarid.trending.features.repo.data.source.local.entity.RepoLocalEntity
 import com.mecofarid.trending.features.repo.data.source.remote.entity.RepoRemoteEntity
-import com.mecofarid.trending.features.repo.domain.model.Repo
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

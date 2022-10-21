@@ -5,9 +5,9 @@ import com.mecofarid.trending.common.data.DataException
 import com.mecofarid.trending.common.data.Datasource
 import com.mecofarid.trending.common.data.Mapper
 import com.mecofarid.trending.common.data.Operation
-import com.mecofarid.trending.features.repo.anyRepo
-import com.mecofarid.trending.features.repo.anyRepoLocalEntity
-import com.mecofarid.trending.features.repo.anyRepoRemoteEntity
+import com.mecofarid.test.feature.repo.anyRepo
+import com.mecofarid.test.feature.repo.anyRepoLocalEntity
+import com.mecofarid.test.feature.repo.anyRepoRemoteEntity
 import com.mecofarid.trending.features.repo.data.query.GetAllTrendingReposQuery
 import com.mecofarid.trending.features.repo.data.source.local.entity.RepoLocalEntity
 import com.mecofarid.trending.features.repo.data.source.remote.entity.RepoRemoteEntity
@@ -20,7 +20,6 @@ import io.mockk.verify
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before

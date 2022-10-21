@@ -1,4 +1,4 @@
-package com.mecofarid.trending.features.repo
+package com.mecofarid.test.feature.repo
 
 import com.mecofarid.trending.features.repo.data.source.local.entity.RepoLocalEntity
 import com.mecofarid.trending.features.repo.data.source.remote.entity.RepoRemoteEntity
@@ -7,7 +7,7 @@ import com.mecofarid.trending.randomInt
 import com.mecofarid.trending.randomLong
 import com.mecofarid.trending.randomString
 
-internal fun anyRepoLocalEntity() =
+fun anyRepoLocalEntity() =
     RepoLocalEntity(
         randomString(),
         randomString(),
@@ -17,13 +17,13 @@ internal fun anyRepoLocalEntity() =
         randomInt()
     )
 
-internal fun anyOwnerLocalEntity() =
+fun anyOwnerLocalEntity() =
     RepoLocalEntity.OwnerLocalEntity(
         randomString(),
         randomString()
     )
 
-internal fun anyRepoRemoteEntity() =
+fun anyRepoRemoteEntity() =
     RepoRemoteEntity(
         randomString(),
         randomString(),
@@ -32,13 +32,13 @@ internal fun anyRepoRemoteEntity() =
         anyOwnerRemoteEntity()
     )
 
-internal fun anyOwnerRemoteEntity() =
+fun anyOwnerRemoteEntity() =
     RepoRemoteEntity.OwnerRemoteEntity(
         randomString(),
         randomString()
     )
 
-internal fun anyRepo() =
+fun anyRepo() =
     Repo(
         randomString(),
         randomString(),
@@ -47,7 +47,7 @@ internal fun anyRepo() =
         anyOwner()
     )
 
-internal fun anyOwner() =
+fun anyOwner() =
     Repo.Owner(
         randomString(),
         randomString()
