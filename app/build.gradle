@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.mecofarid.sadapayallstar'
+    namespace 'com.mecofarid.trending'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.mecofarid.sadapayallstar"
+        applicationId "com.mecofarid.trending"
         minSdk 21
         targetSdk 33
         versionCode 1
@@ -61,4 +61,6 @@ dependencies {
 
     // Test
     testImplementation "junit:junit:$jUnit"
+    androidTestImplementation "androidx.test.ext:junit:$jUnitAndroidX"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
 }
