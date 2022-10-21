@@ -1,4 +1,4 @@
-package com.mecofarid.trending
+package com.mecofarid.trending.features.repo.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

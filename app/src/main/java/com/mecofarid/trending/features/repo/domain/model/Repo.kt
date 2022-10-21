@@ -1,14 +1,14 @@
 package com.mecofarid.trending.features.repo.domain.model
 
 data class Repo(
-    private val name: String,
-    private val language: String,
-    private val stargazersCount: Long,
-    private val description: String,
-    private val owner: Owner
+    val name: String,
+    val language: String,
+    val stargazersCount: Long,
+    val description: String,
+    val owner: Owner
 ){
     data class Owner(
-        private val login: String,
-        private val avatarUrl: String
+        val login: String,
+        val avatarUrl: String
     )
 }

@@ -9,6 +9,9 @@ ext {
     // Kotlin
     kotlin = "1.9.0"
 
+    // Kotlin Coroutines
+    kotlinCoroutines = "1.6.4"
+
     // Android UI
     appCompat = "1.5.1"
     materialUi = "1.7.0"
@@ -24,4 +27,5 @@ ext {
     jUnit = "4.13.2"
     jUnitAndroidX = "1.1.3"
     espresso = "3.4.0"
+    mockk = "1.13.2"
 }

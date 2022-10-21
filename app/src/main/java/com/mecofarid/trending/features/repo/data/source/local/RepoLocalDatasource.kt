@@ -10,7 +10,7 @@ import com.mecofarid.trending.features.repo.data.source.local.entity.RepoLocalEn
 class RepoLocalDatasource(
     private val repoLocalEntityDao: RepoLocalEntityDao
 ): Datasource<List<RepoLocalEntity>> {
-    override suspend fun get(query: Query, operation: Operation): List<RepoLocalEntity> = when (query) {
+    override suspend fun get(query: Query): List<RepoLocalEntity> = when (query) {
         GetAllTrendingReposQuery -> repoLocalEntityDao.getAllTrendingRepos()
         else -> throw UnsupportedOperationException("Get with query type ($query) is not supported")
     }

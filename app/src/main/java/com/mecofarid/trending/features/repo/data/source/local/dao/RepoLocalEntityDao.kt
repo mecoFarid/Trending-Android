@@ -10,17 +10,17 @@ import com.mecofarid.trending.features.repo.data.source.local.entity.RepoLocalEn
 interface RepoLocalEntityDao {
 
     @Query("SELECT * FROM repolocalentity")
-    fun getAllTrendingRepos(): List<RepoLocalEntity>
+    suspend fun getAllTrendingRepos(): List<RepoLocalEntity>
 
     @Transaction
-    fun deleteAllTrendingReposAndInsert(repos: List<RepoLocalEntity>) {
+    suspend fun deleteAllTrendingReposAndInsert(repos: List<RepoLocalEntity>) {
         deleteAll()
         insertAll(repos)
     }
 
     @Query("DELETE FROM repolocalentity")
-    fun deleteAll()
+    suspend fun deleteAll()
 
     @Insert
-    fun insertAll(users: List<RepoLocalEntity>)
+    suspend fun insertAll(users: List<RepoLocalEntity>)
 }

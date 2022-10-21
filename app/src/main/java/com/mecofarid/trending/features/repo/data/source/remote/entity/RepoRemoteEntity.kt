@@ -1,6 +1,6 @@
 package com.mecofarid.trending.features.repo.data.source.remote.entity
 
-data class RepoResponseRemoteEntity(val items: List<RepoRemoteEntity>?)
+data class RepoResponseRemoteEntity(val items: List<RepoRemoteEntity>)
 
 data class RepoRemoteEntity(
     val name: String,

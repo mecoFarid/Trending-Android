@@ -46,6 +46,9 @@ dependencies {
     // Kotlin
     implementation "androidx.core:core-ktx:$kotlin"
 
+    // Kotlin Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines"
+
     // Android UI
     implementation "androidx.appcompat:appcompat:$appCompat"
     implementation "com.google.android.material:material:$materialUi"
@@ -53,6 +56,7 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:$room"
+    implementation "androidx.room:room-ktx:$room"
     annotationProcessor "androidx.room:room-compiler:$room"
     kapt "androidx.room:room-compiler:$room"
 
@@ -63,4 +67,6 @@ dependencies {
     testImplementation "junit:junit:$jUnit"
     androidTestImplementation "androidx.test.ext:junit:$jUnitAndroidX"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
+    testImplementation "io.mockk:mockk:$mockk"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinCoroutines"
 }

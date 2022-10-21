@@ -12,7 +12,7 @@
         android:theme="@style/Theme.Trending"
         tools:targetApi="33">
         <activity
-            android:name=".MainActivity"
+            android:name=".features.repo.ui.view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
