@@ -7,7 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.mecofarid.test.feature.repo.anyRepoLocalEntity
 import com.mecofarid.trending.anyList
-import com.mecofarid.trending.common.data.AppDatabase
+import com.mecofarid.trending.common.db.room.AppDatabase
 import com.mecofarid.trending.features.repo.data.source.local.entity.RepoLocalEntity
 import com.mecofarid.trending.randomInt
 import kotlinx.coroutines.ExperimentalCoroutinesApi

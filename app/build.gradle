@@ -62,6 +62,10 @@ dependencies {
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation("com.squareup.retrofit2:converter-moshi:$retrofit")
+
+    // Moshi
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshi")
 
     // Test
     testImplementation "junit:junit:$jUnit"
@@ -70,6 +74,7 @@ dependencies {
     testImplementation "androidx.test:core-ktx:$kotlinAndroidTest"
     testImplementation "androidx.test.ext:junit:$jUnitAndroidX"
     testImplementation project(':shared-test')
+    testImplementation "com.squareup.okhttp3:mockwebserver:$ok_http"
     androidTestImplementation project(':shared-test')
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinCoroutines"
     androidTestImplementation "androidx.test.ext:junit:$jUnitAndroidX"

@@ -4,6 +4,7 @@ import com.mecofarid.trending.features.repo.data.source.remote.entity.RepoRespon
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface RepoService {
-    suspend fun searchRepos(query: String): RepoResponseRemoteEntity
+interface RepoRetrofitService: RepoService {
+    @GET("search/repositories")
+    override suspend fun searchRepos(@Query("q") query: String): RepoResponseRemoteEntity
 }

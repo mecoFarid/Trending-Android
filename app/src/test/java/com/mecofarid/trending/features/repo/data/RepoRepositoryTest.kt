@@ -171,6 +171,7 @@ internal class RepoRepositoryTest {
         }catch (e: DataException.DataNotFoundException){
             exception = e
         }
+
         assertTrue(exception is DataException.DataNotFoundException)
         coVerify (exactly = 1) { cacheDatasource.get(query) }
         coVerify (exactly = 1) { mainDatasource.get(query) }
@@ -190,8 +191,8 @@ internal class RepoRepositoryTest {
         }catch (e: DataException.DataNotFoundException){
             exception = e
         }
-        assertTrue(exception is DataException.DataNotFoundException)
 
+        assertTrue(exception is DataException.DataNotFoundException)
         coVerify (exactly = 2) { cacheDatasource.get(query) }
         coVerify (exactly = 1) { mainDatasource.get(query) }
     }
