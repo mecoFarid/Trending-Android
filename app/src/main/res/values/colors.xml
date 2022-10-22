@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="dark_blue">#CC2B3445</color>
+
+    <color name="status_bar_color">#f0f6ff</color>
+    <color name="toolbar_bg_color">@color/dark_blue</color>
+    <color name="toolbar_title_color">@color/dark_blue</color>
+    <color name="error_title_color">@color/dark_blue</color>
+    <color name="error_message_color">#992B3445</color>
+    <color name="retry_btn_color">#b1cdaf</color>
+
+    <color name="trending_item_primary_text_color">@color/dark_blue</color>
+    <color name="trending_item_secondary_text_color">@color/dark_blue</color>
+    <color name="trending_item_language_indicator_color">#4d709d</color>
+    <color name="trending_item_star_color">#ffb355</color>
+
+    <color name="view_placeholder_bg">#192B3445</color>
 </resources>

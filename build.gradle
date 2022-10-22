@@ -34,6 +34,12 @@ ext {
     // Moshi
     moshi = "1.14.0"
 
+    // Lottie
+    lottie = "5.2.0"
+
+    // Shimmer
+    shimmer = "0.5.0"
+
     // Testing
     jUnit = "4.13.2"
     jUnitAndroidX = "1.1.3"

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="gu">8dp</dimen>
+    <dimen name="gu_0.25">2dp</dimen>
+    <dimen name="gu_0.5">4dp</dimen>
+    <dimen name="gu_1.5">12dp</dimen>
+    <dimen name="gu_2">16dp</dimen>
+    <dimen name="gu_4">32dp</dimen>
+    <dimen name="gu_6">48dp</dimen>
+    <dimen name="gu_8">64dp</dimen>
+
+    <dimen name="text_10">10sp</dimen>
+    <dimen name="text_12">12sp</dimen>
+    <dimen name="text_14">14sp</dimen>
+    <dimen name="text_18">18sp</dimen>
+</resources>

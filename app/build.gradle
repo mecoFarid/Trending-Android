@@ -66,7 +66,13 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$retrofitLogging"
 
     // Moshi
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshi")
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi"
+
+    // Lottie
+    implementation "com.airbnb.android:lottie:$lottie"
+
+    // Shimmer
+    implementation "com.facebook.shimmer:shimmer:$shimmer"
 
     // Test
     testImplementation "junit:junit:$jUnit"
