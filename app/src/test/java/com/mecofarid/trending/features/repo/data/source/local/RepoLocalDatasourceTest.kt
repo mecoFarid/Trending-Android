@@ -3,12 +3,11 @@ package com.mecofarid.trending.features.repo.data.source.local
 import com.mecofarid.trending.anyList
 import com.mecofarid.trending.common.data.Query
 import com.mecofarid.test.feature.repo.anyRepoLocalEntity
+import com.mecofarid.trending.common.data.DataException
 import com.mecofarid.trending.features.repo.data.query.GetAllTrendingReposQuery
 import com.mecofarid.trending.features.repo.data.source.local.dao.RepoLocalEntityDao
-import io.mockk.MockKAnnotations
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.coJustRun
+import com.mecofarid.trending.features.repo.data.source.local.entity.RepoLocalEntity
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -67,6 +66,15 @@ internal class RepoLocalDatasourceTest {
         val datasource = givenDataSource()
         val query: Query = object : Query {}
         datasource.put(query = query, entityList)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test(expected = DataException.DataNotFoundException::class)
+    fun `assert exception is thrown when no data found`() = runTest {
+        val datasource = givenDataSource()
+        coEvery { repoLocalEntityDao.getAllTrendingRepos() } returns emptyList()
+
+        datasource.get(GetAllTrendingReposQuery)
     }
 
     private fun givenDataSource() = RepoLocalDatasource(repoLocalEntityDao)

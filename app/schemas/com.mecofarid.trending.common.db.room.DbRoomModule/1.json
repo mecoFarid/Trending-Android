@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "25b325b72940ae5d3dbc276f9fa9cca7",
+    "identityHash": "2be072ddee670992ed3394a99771601b",
     "entities": [
       {
         "tableName": "RepoLocalEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `language` TEXT NOT NULL, `stargazersCount` INTEGER NOT NULL, `description` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `login` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `language` TEXT, `stargazersCount` INTEGER NOT NULL, `description` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `login` TEXT NOT NULL, `avatarUrl` TEXT)",
         "fields": [
           {
             "fieldPath": "name",
@@ -18,7 +18,7 @@
             "fieldPath": "language",
             "columnName": "language",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "stargazersCount",
@@ -30,7 +30,7 @@
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "id",
@@ -48,7 +48,7 @@
             "fieldPath": "owner.avatarUrl",
             "columnName": "avatarUrl",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -64,7 +64,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '25b325b72940ae5d3dbc276f9fa9cca7')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2be072ddee670992ed3394a99771601b')"
     ]
   }
 }

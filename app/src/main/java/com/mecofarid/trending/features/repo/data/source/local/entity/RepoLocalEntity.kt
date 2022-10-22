@@ -7,14 +7,14 @@ import androidx.room.PrimaryKey
 @Entity
 data class RepoLocalEntity(
     val name: String,
-    val language: String,
+    val language: String?,
     val stargazersCount: Long,
-    val description: String,
+    val description: String?,
     @Embedded val owner: OwnerLocalEntity,
     @PrimaryKey(autoGenerate = true) val id: Int = 0
 ){
     data class OwnerLocalEntity(
         val login: String,
-        val avatarUrl: String,
+        val avatarUrl: String?,
     )
 }

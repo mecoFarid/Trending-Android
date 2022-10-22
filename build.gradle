@@ -29,6 +29,7 @@ ext {
 
     // Retrofit
     retrofit = "2.9.0"
+    retrofitLogging = "4.3.1"
 
     // Moshi
     moshi = "1.14.0"
@@ -39,5 +40,5 @@ ext {
     espresso = "3.4.0"
     mockk = "1.13.2"
     kotlinAndroidTest = "1.4.0"
-    ok_http = "4.9.0"
+    okHttp = "4.9.0"
 }
