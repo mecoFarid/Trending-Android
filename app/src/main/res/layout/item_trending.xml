@@ -4,24 +4,16 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
-    android:paddingBottom="@dimen/gu_2">
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/gu_0.25"
-        android:background="@drawable/divider_bg"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+    android:paddingBottom="@dimen/gu_1.5">
 
     <ImageView
         android:id="@+id/avatar"
         android:layout_width="@dimen/gu_4"
         android:layout_height="@dimen/gu_4"
         android:background="@drawable/circle_placeholder_bg"
-        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/gu_2"/>
+        android:layout_marginTop="@dimen/gu_1.5"/>
 
     <TextView
         android:id="@+id/owner"
@@ -29,7 +21,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/avatar"
         app:layout_constraintStart_toEndOf="@id/avatar"
-        android:paddingStart="@dimen/gu_2"
+        android:layout_marginStart="@dimen/gu_2"
         android:paddingEnd="@dimen/gu_2"
         style="@style/Widget.Trending.TextAppearance.TrendingItem.Secondary"
         tool:text="Owner"/>
@@ -40,49 +32,54 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/avatar"
         app:layout_constraintStart_toEndOf="@id/avatar"
-        android:paddingStart="@dimen/gu_2"
+        app:layout_constraintStart_toStartOf="@id/owner"
         android:paddingEnd="@dimen/gu_2"
         style="@style/Widget.Trending.TextAppearance.TrendingItem.Primary"
         tool:text="Name"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/extra"
-        android:layout_width="wrap_content"
+        android:id="@+id/extra_holder"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/name"
-        app:layout_constraintStart_toEndOf="@id/avatar"
-        android:layout_marginTop="@dimen/gu">
+        app:layout_constraintStart_toStartOf="@id/owner"
+        android:layout_marginTop="@dimen/gu"
+        android:paddingEnd="@dimen/gu_2">
 
         <TextView
             android:id="@+id/description"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/gu_2"
+            android:layout_marginStart="@dimen/gu_2"
             android:paddingEnd="@dimen/gu_2"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             style="@style/Widget.Trending.TextAppearance.TrendingItem.Secondary"
-            tool:text="Owner"/>
+            tool:text="Loooooooooooong Description"/>
 
         <com.mecofarid.trending.common.widget.IconizedTextView
             android:id="@+id/language"
-            android:layout_width="@dimen/gu_0.5"
-            android:layout_height="@dimen/gu_0.5"
-            app:layout_constraintTop_toTopOf="@id/description"
-            app:layout_constraintStart_toStartOf="parent"
-            android:drawableStart="@drawable/circle_language_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintStart_toStartOf="@id/description"
+            android:layout_marginTop="@dimen/gu_0.5"
+            app:drawableStartSize="@dimen/gu_0.75"
+            android:drawableLeft="@drawable/circle_language_indicator"
+            android:drawablePadding="@dimen/gu_0.5"
             style="@style/Widget.Trending.TextAppearance.TrendingItem.Secondary"
             tool:text="Kotlin"/>
 
         <com.mecofarid.trending.common.widget.IconizedTextView
             android:id="@+id/star_count"
-            android:layout_width="@dimen/gu_0.5"
-            android:layout_height="@dimen/gu_0.5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/language"
             app:layout_constraintBottom_toBottomOf="@id/language"
             app:layout_constraintStart_toEndOf="@id/language"
             android:layout_marginStart="@dimen/gu_2"
-            android:drawableStart="@drawable/ic_star"
+            android:drawableLeft="@drawable/ic_star"
+            app:drawableStartSize="@dimen/gu_1.25"
+            android:drawablePadding="@dimen/gu_0.5"
             style="@style/Widget.Trending.TextAppearance.TrendingItem.Secondary"
             tool:text="115"/>
 

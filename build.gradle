@@ -23,6 +23,8 @@ ext {
     appCompat = "1.5.1"
     materialUi = "1.7.0"
     constraintLayout = "2.1.4"
+    recyclerView = '1.2.1'
+    swiperefresh = "1.1.0"
 
     // Room
     room = "2.4.3"
@@ -39,6 +41,9 @@ ext {
 
     // Shimmer
     shimmer = "0.5.0"
+
+    // Glide
+    glide = "4.14.2"
 
     // Testing
     jUnit = "4.13.2"

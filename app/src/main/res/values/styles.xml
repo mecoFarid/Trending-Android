@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Widget.Trending.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+    <style name="Widget.Trending.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="selectableItemBackground">?android:selectableItemBackground</item>
         <item name="selectableItemBackgroundBorderless">?android:selectableItemBackground</item>
-        <item name="colorControlHighlight">@color/toolbar_bg_color</item>
-        <item name="colorControlNormal">@android:color/white</item>
         <item name="titleTextAppearance">@style/Widget.Luminostics.ToolbarText</item>
     </style>
 
 
     <style name="Widget.Luminostics.ToolbarText" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/toolbar_bg_color</item>
-        <item name="android:textSize">@dimen/text_18</item>
+        <item name="android:textSize">@dimen/text_16</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Widget.Trending.TextAppearance.Title" parent="android:Widget.TextView">
         <item name="android:textColor">@color/error_title_color</item>
-        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textSize">@dimen/text_12</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Widget.Trending.TextAppearance.Body" parent="android:Widget.TextView">
         <item name="android:textColor">@color/error_message_color</item>
-        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textSize">@dimen/text_10</item>
     </style>
 
     <style name="Widget.Trending.TextAppearance.TrendingItem.Primary" parent="android:Widget.TextView">
         <item name="android:textColor">@color/trending_item_primary_text_color</item>
-        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textSize">@dimen/text_10</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -47,7 +44,7 @@
         <item name="backgroundTint">@null</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textSize">@dimen/text_10</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
         <item name="android:minHeight">0dp</item>

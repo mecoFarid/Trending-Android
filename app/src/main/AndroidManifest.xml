@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Trending"
         tools:targetApi="33">
         <activity
-            android:name=".features.repo.ui.RepoActivity"
+            android:name=".features.repo.ui.view.RepoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

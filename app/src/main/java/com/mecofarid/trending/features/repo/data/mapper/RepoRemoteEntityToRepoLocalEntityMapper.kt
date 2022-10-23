@@ -12,7 +12,6 @@ class RepoRemoteEntityToLocalEntityMapper(
 
     override fun map(input: RepoRemoteEntity): RepoLocalEntity =
         with(input){
-            println("KOR $this")
             RepoLocalEntity(
                 name,
                 language,

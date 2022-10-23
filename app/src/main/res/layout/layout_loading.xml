@@ -10,21 +10,21 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/item_placeholder"/>
-        <include layout="@layout/item_placeholder"/>
-        <include layout="@layout/item_placeholder"/>
-        <include layout="@layout/item_placeholder"/>
-        <include layout="@layout/item_placeholder"/>
-        <include layout="@layout/item_placeholder"/>
-        <include layout="@layout/item_placeholder"/>
-        <include layout="@layout/item_placeholder"/>
-        <include layout="@layout/item_placeholder"/>
-        <include layout="@layout/item_placeholder"/>
-        <include layout="@layout/item_placeholder"/>
-        <include layout="@layout/item_placeholder"/>
-        <include layout="@layout/item_placeholder"/>
-        <include layout="@layout/item_placeholder"/>
-        <include layout="@layout/item_placeholder"/>
+        <include layout="@layout/item_trending_loading_placeholder"/>
+        <include layout="@layout/item_trending_loading_placeholder"/>
+        <include layout="@layout/item_trending_loading_placeholder"/>
+        <include layout="@layout/item_trending_loading_placeholder"/>
+        <include layout="@layout/item_trending_loading_placeholder"/>
+        <include layout="@layout/item_trending_loading_placeholder"/>
+        <include layout="@layout/item_trending_loading_placeholder"/>
+        <include layout="@layout/item_trending_loading_placeholder"/>
+        <include layout="@layout/item_trending_loading_placeholder"/>
+        <include layout="@layout/item_trending_loading_placeholder"/>
+        <include layout="@layout/item_trending_loading_placeholder"/>
+        <include layout="@layout/item_trending_loading_placeholder"/>
+        <include layout="@layout/item_trending_loading_placeholder"/>
+        <include layout="@layout/item_trending_loading_placeholder"/>
+        <include layout="@layout/item_trending_loading_placeholder"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

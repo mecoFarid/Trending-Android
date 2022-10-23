@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingBottom="@dimen/gu_2">
+    android:paddingBottom="@dimen/gu_2"
+    android:paddingStart="@dimen/gu_2">
 
     <View
         android:id="@+id/divider"
@@ -38,7 +39,8 @@
         app:layout_constraintBottom_toBottomOf="@id/avatar"
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/gu_2"/>
+        android:layout_marginStart="@dimen/gu_2"
+        android:layout_marginEnd="@dimen/gu_2"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

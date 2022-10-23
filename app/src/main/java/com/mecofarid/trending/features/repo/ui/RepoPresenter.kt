@@ -40,11 +40,10 @@ class RepoPresenter (private val repoInteractor: GetRepoInteractor): CoroutineSc
 
     private fun loadData(operation: Operation) {
         state = State.Loading
-        println("KOROKR")
         launch {
             state = try {
                 val data = repoInteractor(GetAllTrendingReposQuery, operation)
-                State.Data(data)
+                State.Success(data)
             } catch (ignore: DataException.DataNotFoundException) {
                 State.NoData
             }
@@ -54,6 +53,6 @@ class RepoPresenter (private val repoInteractor: GetRepoInteractor): CoroutineSc
     sealed class State {
         object Loading : State()
         object NoData : State()
-        data class Data(val repos: List<Repo>) : State()
+        data class Success(val repos: List<Repo>) : State()
     }
 }
