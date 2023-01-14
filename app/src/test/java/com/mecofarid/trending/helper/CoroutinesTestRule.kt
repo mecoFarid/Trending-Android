@@ -1,4 +1,4 @@
-package com.mecofarid.trending
+package com.mecofarid.trending.helper
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -2,6 +2,7 @@ package com.mecofarid.trending.features.repo
 
 import com.mecofarid.trending.common.data.DataException
 import com.mecofarid.trending.common.data.Mapper
+import com.mecofarid.trending.common.data.Repository
 import com.mecofarid.trending.common.db.DbComponent
 import com.mecofarid.trending.common.network.NetworkComponent
 import com.mecofarid.trending.features.repo.data.RepoRepository
@@ -12,10 +13,10 @@ import com.mecofarid.trending.features.repo.data.mapper.RepoRemoteEntityToLocalE
 import com.mecofarid.trending.features.repo.data.source.local.RepoLocalDatasource
 import com.mecofarid.trending.features.repo.data.source.remote.RepoRemoteDatasource
 import com.mecofarid.trending.features.repo.domain.interactor.GetRepoInteractor
-import com.mecofarid.trending.features.repo.ui.RepoPresenter
+import com.mecofarid.trending.features.repo.domain.model.Repo
 
 interface RepoComponent {
-    fun repoPresenter(): RepoPresenter
+    fun getRepoInteractor(): GetRepoInteractor
 }
 
 class RepoModule(
@@ -41,5 +42,5 @@ class RepoModule(
         )
     }
 
-    override fun repoPresenter(): RepoPresenter = RepoPresenter(GetRepoInteractor(repository))
+    override fun getRepoInteractor(): GetRepoInteractor = GetRepoInteractor(repository)
 }

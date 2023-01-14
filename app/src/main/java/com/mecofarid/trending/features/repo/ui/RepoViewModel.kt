@@ -1,38 +1,40 @@
 package com.mecofarid.trending.features.repo.ui
 
+import android.text.Editable.Factory
+import androidx.lifecycle.*
+import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import com.mecofarid.trending.common.data.DataException
 import com.mecofarid.trending.common.data.Operation
 import com.mecofarid.trending.features.repo.data.query.GetAllTrendingReposQuery
 import com.mecofarid.trending.features.repo.domain.interactor.GetRepoInteractor
 import com.mecofarid.trending.features.repo.domain.model.Repo
 import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
 
-class RepoPresenter (private val repoInteractor: GetRepoInteractor): CoroutineScope {
-    interface View {
-        fun notifyState(state: State)
+class RepoViewModel(private val repoInteractor: GetRepoInteractor): ViewModel() {
+
+    companion object {
+        fun factory(repoInteractor: GetRepoInteractor) = viewModelFactory {
+            initializer {
+                RepoViewModel(repoInteractor)
+            }
+        }
     }
 
-    override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
-
-    private var view: View? = null
+    private val internalUiState = MutableLiveData<State>(State.Loading)
+    val uiState = internalUiState
     private var state: State = State.Loading
         set(value) {
             field = value
-            view?.notifyState(field)
+            internalUiState.postValue(value)
         }
 
-    fun onViewLoaded(view: View) {
-        this.view = view
+    init {
         loadData(Operation.CacheElseSyncMainOperation)
     }
 
-    fun onViewDestroyed() {
-        view = null
-        cancel()
-    }
-
-    fun forceRefresh() {
+    fun refresh() {
         if (state == State.Loading)
             return
         loadData(Operation.SyncMainOperation)
@@ -40,7 +42,7 @@ class RepoPresenter (private val repoInteractor: GetRepoInteractor): CoroutineSc
 
     private fun loadData(operation: Operation) {
         state = State.Loading
-        launch {
+        viewModelScope.launch {
             state = try {
                 val data = repoInteractor(GetAllTrendingReposQuery, operation)
                 State.Success(data)

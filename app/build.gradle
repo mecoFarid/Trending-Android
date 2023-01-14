@@ -56,6 +56,10 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$recyclerView"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefresh"
 
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelScope"
+    implementation "androidx.activity:activity-ktx:$viewModelActivtyKtx"
+
     // Room
     implementation "androidx.room:room-runtime:$room"
     implementation "androidx.room:room-ktx:$room"
@@ -87,6 +91,7 @@ dependencies {
     testImplementation "androidx.test.ext:junit:$jUnitAndroidX"
     testImplementation project(':shared-test')
     testImplementation "com.squareup.okhttp3:mockwebserver:$okHttp"
+    testImplementation "androidx.arch.core:core-testing:$androidArchCore"
     androidTestImplementation project(':shared-test')
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinCoroutines"
     androidTestImplementation "androidx.test.ext:junit:$jUnitAndroidX"

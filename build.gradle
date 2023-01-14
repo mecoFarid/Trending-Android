@@ -19,6 +19,10 @@ ext {
     // Kotlin Coroutines
     kotlinCoroutines = "1.6.4"
 
+    // ViewModel
+    viewModelScope = "2.5.1"
+    viewModelActivtyKtx = "1.6.1"
+
     // Android UI
     appCompat = "1.5.1"
     materialUi = "1.7.0"
@@ -52,4 +56,5 @@ ext {
     mockk = "1.13.2"
     kotlinAndroidTest = "1.4.0"
     okHttp = "4.9.0"
+    androidArchCore = "2.1.0"
 }
