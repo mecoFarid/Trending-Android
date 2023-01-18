@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.facebook.shimmer.ShimmerFrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/loading_holder"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <data>
+        <import type="com.mecofarid.trending.features.repo.ui.RepoViewModel.State"/>
+        <variable
+            name="viewModel"
+            type="com.mecofarid.trending.features.repo.ui.RepoViewModel"/>
+    </data>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/loading_holder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        app:isLoading="@{viewModel.uiState}">
 
-        <include layout="@layout/item_trending_loading_placeholder"/>
-        <include layout="@layout/item_trending_loading_placeholder"/>
-        <include layout="@layout/item_trending_loading_placeholder"/>
-        <include layout="@layout/item_trending_loading_placeholder"/>
-        <include layout="@layout/item_trending_loading_placeholder"/>
-        <include layout="@layout/item_trending_loading_placeholder"/>
-        <include layout="@layout/item_trending_loading_placeholder"/>
-        <include layout="@layout/item_trending_loading_placeholder"/>
-        <include layout="@layout/item_trending_loading_placeholder"/>
-        <include layout="@layout/item_trending_loading_placeholder"/>
-        <include layout="@layout/item_trending_loading_placeholder"/>
-        <include layout="@layout/item_trending_loading_placeholder"/>
-        <include layout="@layout/item_trending_loading_placeholder"/>
-        <include layout="@layout/item_trending_loading_placeholder"/>
-        <include layout="@layout/item_trending_loading_placeholder"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <include layout="@layout/item_trending_loading_placeholder"/>
+            <include layout="@layout/item_trending_loading_placeholder"/>
+            <include layout="@layout/item_trending_loading_placeholder"/>
+            <include layout="@layout/item_trending_loading_placeholder"/>
+            <include layout="@layout/item_trending_loading_placeholder"/>
+            <include layout="@layout/item_trending_loading_placeholder"/>
+            <include layout="@layout/item_trending_loading_placeholder"/>
+            <include layout="@layout/item_trending_loading_placeholder"/>
+            <include layout="@layout/item_trending_loading_placeholder"/>
+            <include layout="@layout/item_trending_loading_placeholder"/>
+            <include layout="@layout/item_trending_loading_placeholder"/>
+            <include layout="@layout/item_trending_loading_placeholder"/>
+            <include layout="@layout/item_trending_loading_placeholder"/>
+            <include layout="@layout/item_trending_loading_placeholder"/>
+            <include layout="@layout/item_trending_loading_placeholder"/>
 
-</com.facebook.shimmer.ShimmerFrameLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+</layout>
