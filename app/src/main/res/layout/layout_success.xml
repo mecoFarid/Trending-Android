@@ -17,6 +17,6 @@
         android:layout_marginStart="@dimen/gu_2"
         app:isSuccess="@{viewModel.uiState}"
         app:dividerOrientation="@{null}"
-        tools:listitem="@layout/item_trending" />
+        tools:listitem="@layout/item_trending"/>
 
 </layout>

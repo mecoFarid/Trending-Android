@@ -20,7 +20,7 @@ class RepoActivity : AppCompatActivity(){
     private val viewModel by viewModels<RepoViewModel> {
         RepoViewModel.factory(application.appComponent().repoComponent().getRepoInteractor())
     }
-    private val repoAdapter by lazy { RepoAdapter() }
+    private val repoAdapter by lazy { RepoAdapter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
