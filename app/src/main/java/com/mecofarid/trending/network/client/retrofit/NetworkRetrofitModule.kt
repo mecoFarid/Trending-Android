@@ -1,7 +1,9 @@
-package com.mecofarid.trending.common.network.retrofit
+package com.mecofarid.trending.network.client.retrofit
 
-import com.mecofarid.trending.common.network.NetworkComponent
-import com.mecofarid.trending.common.network.moshi.JsonConverter
+import com.mecofarid.trending.common.data.DataException
+import com.mecofarid.trending.common.data.Mapper
+import com.mecofarid.trending.di.network.NetworkComponent
+import com.mecofarid.trending.network.serialization.JsonConverter
 import com.mecofarid.trending.features.repo.data.source.remote.service.RepoRetrofitService
 import com.mecofarid.trending.features.repo.data.source.remote.service.RepoService
 import okhttp3.OkHttpClient
@@ -15,11 +17,15 @@ private const val CONNECT_TIME_OUT = 30L
 
 class NetworkRetrofitModule(
     private val jsonConverter: JsonConverter
-): NetworkComponent{
+): NetworkComponent {
 
     private val service by lazy {
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+
+        val exceptionMapper = object : Mapper<Throwable, Throwable> {
+            override fun map(input: Throwable): Throwable = DataException.DataNotFoundException(input)
+        }
 
         val client = OkHttpClient.Builder()
             .readTimeout(READ_WRITE_TIME_OUT, TimeUnit.SECONDS)
@@ -31,7 +37,7 @@ class NetworkRetrofitModule(
         val retrofit = Retrofit.Builder()
             .client(client)
             .baseUrl(BASE_URL)
-            .addCallAdapterFactory(RetrofitExceptionHandlerAdapterFactory())
+            .addCallAdapterFactory(RetrofitExceptionHandlerAdapterFactory(exceptionMapper))
             .addConverterFactory(jsonConverter.converterFactory())
             .build()
 

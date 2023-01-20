@@ -1,8 +1,8 @@
-package com.mecofarid.trending.common.db.room
+package com.mecofarid.trending.db.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.mecofarid.trending.common.db.DbComponent
+import com.mecofarid.trending.di.db.DbComponent
 import com.mecofarid.trending.features.repo.data.source.local.dao.RepoLocalEntityRoomDao
 import com.mecofarid.trending.features.repo.data.source.local.entity.RepoLocalEntity
 

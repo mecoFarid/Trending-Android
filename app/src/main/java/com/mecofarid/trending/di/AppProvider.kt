@@ -1,12 +1,10 @@
-package com.mecofarid.trending
+package com.mecofarid.trending.di
 
 import android.app.Application
 import androidx.room.Room
-import com.mecofarid.trending.common.db.DbComponent
-import com.mecofarid.trending.common.db.room.DbRoomModule
-import com.mecofarid.trending.common.network.NetworkComponent
-import com.mecofarid.trending.common.network.moshi.MoshiJsonConverter
-import com.mecofarid.trending.common.network.retrofit.NetworkRetrofitModule
+import com.mecofarid.trending.db.room.DbRoomModule
+import com.mecofarid.trending.network.serialization.moshi.MoshiJsonConverter
+import com.mecofarid.trending.network.client.retrofit.NetworkRetrofitModule
 import com.mecofarid.trending.features.repo.RepoComponent
 import com.mecofarid.trending.features.repo.RepoModule
 import com.squareup.moshi.Moshi
@@ -17,7 +15,7 @@ interface AppComponent{
     fun repoComponent(): RepoComponent
 }
 
-class AppModule(application: Application): AppComponent{
+class AppModule(application: Application): AppComponent {
 
     private val dbComponent by lazy {
         Room.databaseBuilder(

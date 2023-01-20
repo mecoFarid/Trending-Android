@@ -6,10 +6,10 @@ import com.mecofarid.trending.common.data.*
 import com.mecofarid.trending.features.repo.data.query.GetAllTrendingReposQuery
 import com.mecofarid.trending.features.repo.data.source.remote.entity.RepoResponseRemoteEntity
 import com.mecofarid.trending.features.repo.data.source.remote.service.RepoService
+import com.mecofarid.trending.randomInt
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -21,8 +21,6 @@ internal class RepoRemoteDatasourceTest{
 
     @MockK
     private lateinit var repoService: RepoService
-    @MockK
-    private lateinit var exceptionMapper: Mapper<Throwable, Throwable>
 
     @Before
     fun setUp(){
@@ -63,25 +61,24 @@ internal class RepoRemoteDatasourceTest{
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `assert data exception rethrown when network exception is thrown`() = runTest {
-        val networkException = setOf(
-            NetworkException.HttpException(),
+        val expectedException = setOf(
+            NetworkException.HttpException(code = randomInt(min = 300, max = 599)),
             NetworkException.ConnectionException()
         ).random()
-        val expectedException = DataException.DataNotFoundException()
         val datasource = givenDataSource()
-        coEvery { repoService.searchRepos(any()) } throws networkException
-        every { exceptionMapper.map(networkException) } returns expectedException
+        coEvery { repoService.searchRepos(any()) } throws expectedException
 
-        lateinit var actualException: DataException
-        try {
-            datasource.get(query = GetAllTrendingReposQuery)
-        }catch (e: DataException.DataNotFoundException){
-            actualException = e
-        }
+        val actualException =
+            try {
+                datasource.get(query = GetAllTrendingReposQuery)
+                null
+            } catch (e: NetworkException) {
+                e
+            }
 
         assertEquals(expectedException, actualException)
         coVerify(exactly = 1) { repoService.searchRepos(TRENDING_REPOS_QUERY) }
     }
 
-    private fun givenDataSource() = RepoRemoteDatasource(repoService, exceptionMapper)
+    private fun givenDataSource() = RepoRemoteDatasource(repoService)
 }

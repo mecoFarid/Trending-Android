@@ -1,6 +1,9 @@
 package com.mecofarid.trending.common.network.retrofit
 
+import com.mecofarid.trending.common.data.DataException
+import com.mecofarid.trending.common.data.Mapper
 import com.mecofarid.trending.common.data.NetworkException
+import com.mecofarid.trending.network.client.retrofit.RetrofitExceptionHandlerAdapterFactory
 import com.mecofarid.trending.randomInt
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -21,12 +24,15 @@ internal class RetrofitExceptionHandlerAdapterTest{
         @BeforeClass
         @JvmStatic
         fun setUp() {
+            val exceptionMapper = object : Mapper<Throwable, Throwable> {
+                override fun map(input: Throwable): Throwable = DataException.DataNotFoundException(input)
+            }
             mockWebServer = MockWebServer()
             mockWebServer.start()
             val retrofit =
                 Retrofit.Builder()
                     .baseUrl(mockWebServer.url("/"))
-                    .addCallAdapterFactory(RetrofitExceptionHandlerAdapterFactory())
+                    .addCallAdapterFactory(RetrofitExceptionHandlerAdapterFactory(exceptionMapper))
                     .addConverterFactory(MoshiConverterFactory.create())
                     .build()
             testService = retrofit.create(TestService::class.java)
@@ -48,11 +54,20 @@ internal class RetrofitExceptionHandlerAdapterTest{
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    @Test(expected = NetworkException.HttpException::class)
+    @Test
     fun `assert exception is thrown when client side fails`() = runTest {
         val httpCode = randomInt(min = 300, max = 599)
+        val expectedException = DataException.DataNotFoundException(NetworkException.HttpException(httpCode))
         enqueueWithBody(httpCode, null)
-        testService.getUser()
+
+        val actualException = try {
+            testService.getUser()
+            null
+        } catch (e: DataException.DataNotFoundException){
+            e
+        }
+
+        assertEquals(expectedException, actualException)
     }
 
     private fun enqueueWithBody(httpCode: Int, body: String?) {

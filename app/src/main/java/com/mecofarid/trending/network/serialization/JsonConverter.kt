@@ -1,4 +1,4 @@
-package com.mecofarid.trending.common.network.moshi
+package com.mecofarid.trending.network.serialization
 
 import retrofit2.Converter
 

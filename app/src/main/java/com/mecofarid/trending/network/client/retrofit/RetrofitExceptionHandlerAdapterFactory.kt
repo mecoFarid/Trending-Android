@@ -1,11 +1,13 @@
-package com.mecofarid.trending.common.network.retrofit
+package com.mecofarid.trending.network.client.retrofit
 
+import com.mecofarid.trending.common.data.DataException
+import com.mecofarid.trending.common.data.Mapper
 import retrofit2.*
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
 class RetrofitExceptionHandlerAdapterFactory(
-//        private val jsonConverterInterface: JsonConverterInterface
+    private val exceptionMapper : Mapper<Throwable, Throwable>
 ): CallAdapter.Factory() {
     override fun get(
             returnType: Type, annotations: Array<Annotation>, retrofit: Retrofit
@@ -17,6 +19,6 @@ class RetrofitExceptionHandlerAdapterFactory(
 
         val responseType = getParameterUpperBound(0, returnType as ParameterizedType)
         val responseTypeClass = getRawType(typeCall)
-        return RetrofitExceptionHandlerAdapter(responseType, responseTypeClass/*, jsonConverterInterface*/)
+        return RetrofitExceptionHandlerAdapter(responseType, responseTypeClass, exceptionMapper)
     }
 }

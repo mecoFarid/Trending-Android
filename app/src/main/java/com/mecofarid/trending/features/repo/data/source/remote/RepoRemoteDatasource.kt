@@ -11,8 +11,7 @@ import com.mecofarid.trending.features.repo.data.source.remote.service.RepoServi
 const val TRENDING_REPOS_QUERY = "language=+sort:stars"
 
 class RepoRemoteDatasource(
-    private val repoService: RepoService,
-    private val exceptionMapper: Mapper<Throwable, Throwable>
+    private val repoService: RepoService
 ): Datasource<List<RepoRemoteEntity>> {
     override suspend fun get(query: Query): List<RepoRemoteEntity> =
         when (query) {
@@ -24,9 +23,5 @@ class RepoRemoteDatasource(
         throw UnsupportedOperationException("Put is not supported")
 
     private suspend fun getTrendingRepos() =
-        try {
-            repoService.searchRepos(TRENDING_REPOS_QUERY).items
-        } catch (e: NetworkException) {
-            throw exceptionMapper.map(e)
-        }
+        repoService.searchRepos(TRENDING_REPOS_QUERY).items
 }

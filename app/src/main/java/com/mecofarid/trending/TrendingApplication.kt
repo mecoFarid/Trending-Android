@@ -1,6 +1,8 @@
 package com.mecofarid.trending
 
 import android.app.Application
+import com.mecofarid.trending.di.AppComponent
+import com.mecofarid.trending.di.AppModule
 import com.mecofarid.trending.features.repo.RepoComponent
 
 class TrendingApplication: Application(), AppComponent {
