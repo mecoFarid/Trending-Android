@@ -4,7 +4,6 @@ import com.mecofarid.trending.common.data.DataException
 import com.mecofarid.trending.common.data.Mapper
 import com.mecofarid.trending.di.network.NetworkComponent
 import com.mecofarid.trending.network.serialization.JsonConverter
-import com.mecofarid.trending.features.repo.data.source.remote.service.RepoRetrofitService
 import com.mecofarid.trending.features.repo.data.source.remote.service.RepoService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -41,7 +40,7 @@ class NetworkRetrofitModule(
             .addConverterFactory(jsonConverter.converterFactory())
             .build()
 
-        retrofit.create(RepoRetrofitService::class.java)
+        retrofit.create(RepoService::class.java)
     }
 
     override fun repoService(): RepoService = service

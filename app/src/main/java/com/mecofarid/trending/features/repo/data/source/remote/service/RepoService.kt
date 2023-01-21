@@ -5,5 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface RepoService {
-    suspend fun searchRepos(query: String): RepoResponseRemoteEntity
+    @GET("search/repositories")
+    suspend fun searchRepos(@Query("q") query: String): RepoResponseRemoteEntity
 }

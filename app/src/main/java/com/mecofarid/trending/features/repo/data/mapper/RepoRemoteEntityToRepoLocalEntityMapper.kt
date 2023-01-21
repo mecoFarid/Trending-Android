@@ -15,7 +15,7 @@ class RepoRemoteEntityToLocalEntityMapper(
             RepoLocalEntity(
                 name,
                 language,
-                stargazers_count,
+                stargazersCount,
                 description,
                 ownerMapper.map(owner)
             )
@@ -24,5 +24,5 @@ class RepoRemoteEntityToLocalEntityMapper(
 
 class OwnerRemoteEntityToOwnerLocalEntityMapper: Mapper<OwnerRemoteEntity, OwnerLocalEntity> {
 
-    override fun map(input: OwnerRemoteEntity): OwnerLocalEntity = OwnerLocalEntity(input.login, input.avatar_url)
+    override fun map(input: OwnerRemoteEntity): OwnerLocalEntity = OwnerLocalEntity(input.login, input.avatarUrl)
 }

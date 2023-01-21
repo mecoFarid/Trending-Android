@@ -10,7 +10,6 @@ import com.mecofarid.trending.features.repo.data.query.GetAllTrendingReposQuery
 import com.mecofarid.trending.features.repo.domain.interactor.GetRepoInteractor
 import com.mecofarid.trending.helper.getOrAwaitValues
 import com.mecofarid.trending.randomInt
-import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay

@@ -26,7 +26,10 @@ class IconizedTextView(context: Context, attrs: AttributeSet?) : MaterialTextVie
 
   private fun getModifiedDrawable(drawablePosition: Int, styleSet: TypedArray): Drawable? =
     compoundDrawables[drawablePosition]?.apply {
-      val drawableSize = styleSet.getDimensionPixelSize(R.styleable.IconizedTextView_drawableStartSize, UNDEFINED_DRAWABLE_SIZE)
+      val drawableSize = styleSet.getDimensionPixelSize(
+        R.styleable.IconizedTextView_drawableStartSize,
+        UNDEFINED_DRAWABLE_SIZE
+      )
       val size = getScaledSize(drawableSize)
       setBounds(0, 0, size.width, size.height)
     }

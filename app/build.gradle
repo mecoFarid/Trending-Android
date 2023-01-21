@@ -1,7 +1,22 @@
+import io.gitlab.arturbosch.detekt.Detekt
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+
+    // Code Style
+    id "io.gitlab.arturbosch.detekt" version "$detekt"
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.0'
+}
+
+allprojects {
+    apply plugin: "io.gitlab.arturbosch.detekt" // Version should be inherited from parent
+
+    detekt {
+        config = files("$rootDir/detekt_config.yml")
+        // point to your custom config defining rules to run, overwriting default behavior
+    }
 }
 
 android {
@@ -41,6 +56,15 @@ android {
     }
 }
 
+tasks.withType(Detekt).configureEach {
+    reports {
+        html.enabled = false // observe findings in your browser with structure and code snippets
+        xml.enabled = false // checkstyle like format mainly for integrations like Jenkins
+        txt.enabled = false // similar to the console output, contains issue signature to manually edit baseline files
+        sarif.enabled = false // standardized SARIF format (https://sarifweb.azurewebsites.net/) to support integrations with Github Code Scanning
+    }
+}
+
 dependencies {
 
     // Kotlin
@@ -70,9 +94,10 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit"
     implementation "com.squareup.okhttp3:logging-interceptor:$retrofitLogging"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$retrofitKotlinxSerialization"
 
-    // Moshi
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi"
+    // KotlinX Serialization
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerialization"
 
     // Lottie
     implementation "com.airbnb.android:lottie:$lottie"

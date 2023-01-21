@@ -3,7 +3,8 @@ plugins {
     id 'com.android.application' version '7.3.1' apply false
     id 'com.android.library' version '7.3.1' apply false
     id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
-    id 'org.jetbrains.kotlin.jvm' version '1.7.20' apply false
+    id 'org.jetbrains.kotlin.jvm' version '1.8.0' apply false
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.0'
 }
 
 ext {
@@ -36,9 +37,10 @@ ext {
     // Retrofit
     retrofit = "2.9.0"
     retrofitLogging = "4.3.1"
+    retrofitKotlinxSerialization = "0.8.0"
 
-    // Moshi
-    moshi = "1.14.0"
+    // KotlinX Serialization
+    kotlinxSerialization = "1.4.1"
 
     // Lottie
     lottie = "5.2.0"
@@ -48,6 +50,9 @@ ext {
 
     // Glide
     glide = "4.14.2"
+
+    // Code Style
+    detekt = "1.20.0"
 
     // Testing
     jUnit = "4.13.2"

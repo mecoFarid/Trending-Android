@@ -6,8 +6,10 @@ import com.mecofarid.test.feature.repo.anyRepoLocalEntity
 import com.mecofarid.trending.common.data.DataException
 import com.mecofarid.trending.features.repo.data.query.GetAllTrendingReposQuery
 import com.mecofarid.trending.features.repo.data.source.local.dao.RepoLocalEntityDao
-import com.mecofarid.trending.features.repo.data.source.local.entity.RepoLocalEntity
-import io.mockk.*
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.coJustRun
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

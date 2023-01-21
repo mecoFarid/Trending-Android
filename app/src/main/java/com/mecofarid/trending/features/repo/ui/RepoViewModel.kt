@@ -1,8 +1,8 @@
 package com.mecofarid.trending.features.repo.ui
 
-import android.text.Editable.Factory
-import androidx.lifecycle.*
-import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.mecofarid.trending.common.data.DataException
@@ -10,7 +10,7 @@ import com.mecofarid.trending.common.data.Operation
 import com.mecofarid.trending.features.repo.data.query.GetAllTrendingReposQuery
 import com.mecofarid.trending.features.repo.domain.interactor.GetRepoInteractor
 import com.mecofarid.trending.features.repo.domain.model.Repo
-import kotlinx.coroutines.*
+import kotlinx.coroutines.launch
 
 class RepoViewModel(private val repoInteractor: GetRepoInteractor): ViewModel() {
 

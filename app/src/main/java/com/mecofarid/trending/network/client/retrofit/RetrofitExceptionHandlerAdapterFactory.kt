@@ -1,8 +1,9 @@
 package com.mecofarid.trending.network.client.retrofit
 
-import com.mecofarid.trending.common.data.DataException
 import com.mecofarid.trending.common.data.Mapper
-import retrofit2.*
+import retrofit2.CallAdapter
+import retrofit2.Retrofit
+import retrofit2.Call
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 

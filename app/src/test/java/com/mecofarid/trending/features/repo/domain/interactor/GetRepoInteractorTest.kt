@@ -14,7 +14,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-internal class GetRepoInteractorTest(){
+internal class GetRepoInteractorTest{
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test

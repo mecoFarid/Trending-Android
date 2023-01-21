@@ -4,7 +4,10 @@ import com.mecofarid.trending.common.data.Mapper
 import com.mecofarid.trending.common.data.NetworkException
 import okhttp3.Request
 import okio.Timeout
-import retrofit2.*
+import retrofit2.CallAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.IOException
 import java.lang.reflect.Type
 
@@ -12,7 +15,7 @@ class RetrofitExceptionHandlerAdapter<T>(
     private val responseType: Type,
     private val responseTypeClass: Class<T>,
     private val exceptionMapper: Mapper<Throwable, Throwable>
-) :CallAdapter<T, Call<T>> {
+) : CallAdapter<T, Call<T>> {
 
     override fun responseType(): Type = responseType
 
@@ -32,7 +35,10 @@ class RetrofitExceptionHandlerAdapter<T>(
                         if (response.isSuccessful)
                             callback.onResponse(call, response)
                         else
-                            callback.onFailure(call, exceptionMapper.map(NetworkException.HttpException(response.code())))
+                            callback.onFailure(
+                                call,
+                                exceptionMapper.map(NetworkException.HttpException(response.code()))
+                            )
                     }
 
                     override fun onFailure(call: Call<T>, t: Throwable) {
