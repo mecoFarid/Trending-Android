@@ -1,5 +1,6 @@
 package com.mecofarid.trending.common.ext
 
+import com.mecofarid.trending.domain.common.ext.toNA
 import com.mecofarid.trending.randomString
 import org.junit.Assert.assertEquals
 import org.junit.Test

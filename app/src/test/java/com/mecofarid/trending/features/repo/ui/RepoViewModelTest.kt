@@ -1,23 +1,23 @@
 package com.mecofarid.trending.features.repo.ui
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.mecofarid.test.feature.repo.anyRepo
-import com.mecofarid.trending.helper.CoroutinesTestRule
-import com.mecofarid.trending.anyList
-import com.mecofarid.trending.common.data.DataException
-import com.mecofarid.trending.common.data.Operation
-import com.mecofarid.trending.features.repo.data.query.GetAllTrendingReposQuery
-import com.mecofarid.trending.features.repo.domain.interactor.GetRepoInteractor
-import com.mecofarid.trending.helper.getOrAwaitValues
-import com.mecofarid.trending.randomInt
-import io.mockk.impl.annotations.MockK
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+//import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+//import com.mecofarid.test.feature.repo.anyRepo
+//import com.mecofarid.trending.helper.CoroutinesTestRule
+//import com.mecofarid.trending.anyList
+//import com.mecofarid.trending.domain.common.data.DataException
+//import com.mecofarid.trending.domain.common.data.Operation
+//import com.mecofarid.trending.domain.features.repo.data.query.GetAllTrendingReposQuery
+//import com.mecofarid.trending.domain.features.repo.domain.interactor.GetRepoInteractor
+//import com.mecofarid.trending.helper.getOrAwaitValues
+//import com.mecofarid.trending.randomInt
+//import io.mockk.impl.annotations.MockK
+//import kotlinx.coroutines.ExperimentalCoroutinesApi
+//import kotlinx.coroutines.delay
+//import kotlinx.coroutines.test.runTest
+//import org.junit.Assert.assertEquals
+//import org.junit.Before
+//import org.junit.Rule
+//import org.junit.Test
 
 /*
 * LiveData can not be observed properly. Reason: ViewModel starts updating LiveData as soon as it is

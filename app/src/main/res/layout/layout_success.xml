@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.mecofarid.trending.features.repo.ui.RepoViewModel" />
+            type="com.mecofarid.trending.ui.repo.RepoViewModel" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"

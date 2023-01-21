@@ -2,10 +2,10 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.mecofarid.trending.features.repo.ui.RepoViewModel.State"/>
+        <import type="com.mecofarid.trending.ui.repo.RepoViewModel"/>
         <variable
             name="viewModel"
-            type="com.mecofarid.trending.features.repo.ui.RepoViewModel"/>
+            type="com.mecofarid.trending.ui.repo.RepoViewModel"/>
     </data>
 
     <com.facebook.shimmer.ShimmerFrameLayout

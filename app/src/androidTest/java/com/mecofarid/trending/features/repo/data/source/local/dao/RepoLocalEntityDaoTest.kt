@@ -7,8 +7,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.mecofarid.test.feature.repo.anyRepoLocalEntity
 import com.mecofarid.trending.anyList
-import com.mecofarid.trending.db.room.DbRoomModule
-import com.mecofarid.trending.features.repo.data.source.local.entity.RepoLocalEntity
+import com.mecofarid.trending.domain.features.repo.data.source.local.dao.RepoLocalEntityDao
+import com.mecofarid.trending.libs.db.room.DbRoomModule
+import com.mecofarid.trending.domain.features.repo.data.source.local.entity.RepoLocalEntity
 import com.mecofarid.trending.randomInt
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

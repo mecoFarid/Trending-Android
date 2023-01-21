@@ -1,9 +1,9 @@
 package com.mecofarid.trending.common.network.retrofit
 
-import com.mecofarid.trending.common.data.DataException
-import com.mecofarid.trending.common.data.Mapper
-import com.mecofarid.trending.common.data.NetworkException
-import com.mecofarid.trending.network.client.retrofit.RetrofitExceptionHandlerAdapterFactory
+import com.mecofarid.trending.domain.common.data.DataException
+import com.mecofarid.trending.domain.common.data.Mapper
+import com.mecofarid.trending.domain.common.data.NetworkException
+import com.mecofarid.trending.libs.network.client.retrofit.RetrofitExceptionHandlerAdapterFactory
 import com.mecofarid.trending.randomInt
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

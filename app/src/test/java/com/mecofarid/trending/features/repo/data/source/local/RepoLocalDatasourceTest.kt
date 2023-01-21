@@ -1,11 +1,12 @@
 package com.mecofarid.trending.features.repo.data.source.local
 
 import com.mecofarid.trending.anyList
-import com.mecofarid.trending.common.data.Query
+import com.mecofarid.trending.domain.common.data.Query
 import com.mecofarid.test.feature.repo.anyRepoLocalEntity
-import com.mecofarid.trending.common.data.DataException
-import com.mecofarid.trending.features.repo.data.query.GetAllTrendingReposQuery
-import com.mecofarid.trending.features.repo.data.source.local.dao.RepoLocalEntityDao
+import com.mecofarid.trending.domain.common.data.DataException
+import com.mecofarid.trending.domain.features.repo.data.query.GetAllTrendingReposQuery
+import com.mecofarid.trending.domain.features.repo.data.source.local.RepoLocalDatasource
+import com.mecofarid.trending.domain.features.repo.data.source.local.dao.RepoLocalEntityDao
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify

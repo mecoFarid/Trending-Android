@@ -1,17 +1,18 @@
 package com.mecofarid.trending.features.repo.data
 
 import com.mecofarid.trending.anyList
-import com.mecofarid.trending.common.data.DataException
-import com.mecofarid.trending.common.data.Datasource
-import com.mecofarid.trending.common.data.Mapper
-import com.mecofarid.trending.common.data.Operation
+import com.mecofarid.trending.domain.common.data.DataException
+import com.mecofarid.trending.domain.common.data.Datasource
+import com.mecofarid.trending.domain.common.data.Mapper
+import com.mecofarid.trending.domain.common.data.Operation
 import com.mecofarid.test.feature.repo.anyRepo
 import com.mecofarid.test.feature.repo.anyRepoLocalEntity
 import com.mecofarid.test.feature.repo.anyRepoRemoteEntity
-import com.mecofarid.trending.features.repo.data.query.GetAllTrendingReposQuery
-import com.mecofarid.trending.features.repo.data.source.local.entity.RepoLocalEntity
-import com.mecofarid.trending.features.repo.data.source.remote.entity.RepoRemoteEntity
-import com.mecofarid.trending.features.repo.domain.model.Repo
+import com.mecofarid.trending.domain.features.repo.data.RepoRepository
+import com.mecofarid.trending.domain.features.repo.data.query.GetAllTrendingReposQuery
+import com.mecofarid.trending.domain.features.repo.data.source.local.entity.RepoLocalEntity
+import com.mecofarid.trending.domain.features.repo.data.source.remote.entity.RepoRemoteEntity
+import com.mecofarid.trending.domain.features.repo.domain.model.Repo
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify

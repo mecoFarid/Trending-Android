@@ -1,8 +1,8 @@
 package com.mecofarid.test.feature.repo
 
-import com.mecofarid.trending.features.repo.data.source.local.entity.RepoLocalEntity
-import com.mecofarid.trending.features.repo.data.source.remote.entity.RepoRemoteEntity
-import com.mecofarid.trending.features.repo.domain.model.Repo
+import com.mecofarid.trending.domain.features.repo.data.source.local.entity.RepoLocalEntity
+import com.mecofarid.trending.domain.features.repo.data.source.remote.entity.RepoRemoteEntity
+import com.mecofarid.trending.domain.features.repo.domain.model.Repo
 import com.mecofarid.trending.randomInt
 import com.mecofarid.trending.randomLong
 import com.mecofarid.trending.randomString

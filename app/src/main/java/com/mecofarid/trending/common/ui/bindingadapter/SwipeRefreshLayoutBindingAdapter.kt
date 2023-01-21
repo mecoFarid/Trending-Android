@@ -2,7 +2,7 @@ package com.mecofarid.trending.common.ui.bindingadapter
 
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.mecofarid.trending.features.repo.ui.RepoViewModel
+import com.mecofarid.trending.ui.repo.RepoViewModel
 
 @BindingAdapter("enablePullRefresh")
 fun enablePullRefresh(view: SwipeRefreshLayout, state: RepoViewModel.State) {

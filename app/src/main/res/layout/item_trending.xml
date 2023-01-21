@@ -4,7 +4,7 @@
     <data>
         <variable
             name="repoView"
-            type="com.mecofarid.trending.features.repo.ui.view.RepoView" />
+            type="com.mecofarid.trending.ui.repo.view.RepoView" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,11 +1,12 @@
 package com.mecofarid.trending.features.repo.domain.interactor
 
 import com.mecofarid.trending.anyList
-import com.mecofarid.trending.common.data.Operation
-import com.mecofarid.trending.common.data.Repository
+import com.mecofarid.trending.domain.common.data.Operation
+import com.mecofarid.trending.domain.common.data.Repository
 import com.mecofarid.test.feature.repo.anyRepo
-import com.mecofarid.trending.features.repo.data.query.GetAllTrendingReposQuery
-import com.mecofarid.trending.features.repo.domain.model.Repo
+import com.mecofarid.trending.domain.features.repo.data.query.GetAllTrendingReposQuery
+import com.mecofarid.trending.domain.features.repo.domain.interactor.GetRepoInteractor
+import com.mecofarid.trending.domain.features.repo.domain.model.Repo
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

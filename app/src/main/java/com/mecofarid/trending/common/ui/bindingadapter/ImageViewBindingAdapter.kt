@@ -2,7 +2,6 @@ package com.mecofarid.trending.common.ui.bindingadapter
 
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
-import androidx.constraintlayout.widget.Placeholder
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.mecofarid.trending.R

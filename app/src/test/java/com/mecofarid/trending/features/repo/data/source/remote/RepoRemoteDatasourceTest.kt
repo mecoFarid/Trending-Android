@@ -2,11 +2,13 @@ package com.mecofarid.trending.features.repo.data.source.remote
 
 import com.mecofarid.trending.anyList
 import com.mecofarid.test.feature.repo.anyRepoRemoteEntity
-import com.mecofarid.trending.common.data.Query
-import com.mecofarid.trending.common.data.NetworkException
-import com.mecofarid.trending.features.repo.data.query.GetAllTrendingReposQuery
-import com.mecofarid.trending.features.repo.data.source.remote.entity.RepoResponseRemoteEntity
-import com.mecofarid.trending.features.repo.data.source.remote.service.RepoService
+import com.mecofarid.trending.domain.common.data.Query
+import com.mecofarid.trending.domain.common.data.NetworkException
+import com.mecofarid.trending.domain.features.repo.data.query.GetAllTrendingReposQuery
+import com.mecofarid.trending.domain.features.repo.data.source.remote.RepoRemoteDatasource
+import com.mecofarid.trending.domain.features.repo.data.source.remote.TRENDING_REPOS_QUERY
+import com.mecofarid.trending.domain.features.repo.data.source.remote.entity.RepoResponseRemoteEntity
+import com.mecofarid.trending.domain.features.repo.data.source.remote.service.RepoService
 import com.mecofarid.trending.randomInt
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
