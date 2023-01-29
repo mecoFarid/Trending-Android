@@ -1,7 +1,7 @@
 package com.mecofarid.trending.domain.di
 
-import com.mecofarid.trending.domain.features.repo.RepoComponent
+import com.mecofarid.trending.domain.features.trending.TrendingComponent
 
 interface AppComponent{
-    fun repoComponent(): RepoComponent
+    fun trendingComponent(): TrendingComponent
 }

@@ -1,7 +1,7 @@
 package com.mecofarid.trending.domain.di.network
 
-import com.mecofarid.trending.domain.features.repo.data.source.remote.service.RepoService
+import com.mecofarid.trending.domain.features.trending.data.source.remote.service.TrendingService
 
 interface NetworkComponent {
-    fun repoService(): RepoService
+    fun trendingService(): TrendingService
 }

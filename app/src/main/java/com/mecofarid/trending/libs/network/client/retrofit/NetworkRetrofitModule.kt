@@ -3,7 +3,7 @@ package com.mecofarid.trending.libs.network.client.retrofit
 import com.mecofarid.trending.domain.common.data.DataException
 import com.mecofarid.trending.domain.common.data.Mapper
 import com.mecofarid.trending.domain.di.network.NetworkComponent
-import com.mecofarid.trending.domain.features.repo.data.source.remote.service.RepoService
+import com.mecofarid.trending.domain.features.trending.data.source.remote.service.TrendingService
 import com.mecofarid.trending.libs.network.serialization.JsonConverter
 import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
@@ -40,8 +40,8 @@ class NetworkRetrofitModule(
             .addConverterFactory(jsonConverter.converterFactory())
             .build()
 
-        retrofit.create(RepoService::class.java)
+        retrofit.create(TrendingService::class.java)
     }
 
-    override fun repoService(): RepoService = service
+    override fun trendingService(): TrendingService = service
 }

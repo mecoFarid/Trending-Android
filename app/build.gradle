@@ -82,7 +82,7 @@ dependencies {
 
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelScope"
-    implementation "androidx.activity:activity-ktx:$viewModelActivtyKtx"
+    implementation "androidx.fragment:fragment-ktx:$viewModelFragmentKtx"
 
     // Room
     implementation "androidx.room:room-runtime:$room"

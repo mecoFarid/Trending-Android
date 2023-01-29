@@ -2,10 +2,10 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "2be072ddee670992ed3394a99771601b",
+    "identityHash": "660d0834f8121f5aa5ff13a3e7e17abf",
     "entities": [
       {
-        "tableName": "RepoLocalEntity",
+        "tableName": "TrendingLocalEntity",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `language` TEXT, `stargazersCount` INTEGER NOT NULL, `description` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `login` TEXT NOT NULL, `avatarUrl` TEXT)",
         "fields": [
           {
@@ -64,7 +64,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2be072ddee670992ed3394a99771601b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '660d0834f8121f5aa5ff13a3e7e17abf')"
     ]
   }
 }

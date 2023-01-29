@@ -1,7 +1,7 @@
 package com.mecofarid.trending.domain.di.db
 
-import com.mecofarid.trending.domain.features.repo.data.source.local.dao.RepoLocalEntityDao
+import com.mecofarid.trending.domain.features.trending.data.source.local.dao.TrendingLocalEntityDao
 
 interface DbComponent{
-    fun repoLocalEntityDao(): RepoLocalEntityDao
+    fun trendingLocalEntityDao(): TrendingLocalEntityDao
 }

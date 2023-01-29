@@ -1,14 +1,14 @@
 package com.mecofarid.test.feature.repo
 
-import com.mecofarid.trending.domain.features.repo.data.source.local.entity.RepoLocalEntity
-import com.mecofarid.trending.domain.features.repo.data.source.remote.entity.RepoRemoteEntity
-import com.mecofarid.trending.domain.features.repo.domain.model.Repo
+import com.mecofarid.trending.domain.features.trending.data.source.local.entity.TrendingLocalEntity
+import com.mecofarid.trending.domain.features.trending.data.source.remote.entity.TrendingRemoteEntity
+import com.mecofarid.trending.domain.features.trending.domain.model.Trending
 import com.mecofarid.trending.randomInt
 import com.mecofarid.trending.randomLong
 import com.mecofarid.trending.randomString
 
 fun anyRepoLocalEntity() =
-    RepoLocalEntity(
+    TrendingLocalEntity(
         randomString(),
         randomString(),
         randomLong(),
@@ -18,13 +18,13 @@ fun anyRepoLocalEntity() =
     )
 
 fun anyOwnerLocalEntity() =
-    RepoLocalEntity.OwnerLocalEntity(
+    TrendingLocalEntity.OwnerLocalEntity(
         randomString(),
         randomString()
     )
 
 fun anyRepoRemoteEntity() =
-    RepoRemoteEntity(
+    TrendingRemoteEntity(
         randomString(),
         randomString(),
         randomLong(),
@@ -33,13 +33,13 @@ fun anyRepoRemoteEntity() =
     )
 
 fun anyOwnerRemoteEntity() =
-    RepoRemoteEntity.OwnerRemoteEntity(
+    TrendingRemoteEntity.OwnerRemoteEntity(
         randomString(),
         randomString()
     )
 
 fun anyRepo() =
-    Repo(
+    Trending(
         randomString(),
         randomString(),
         randomLong(),
@@ -48,7 +48,7 @@ fun anyRepo() =
     )
 
 fun anyOwner() =
-    Repo.Owner(
+    Trending.Owner(
         randomString(),
         randomString()
     )

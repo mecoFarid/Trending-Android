@@ -22,7 +22,7 @@ ext {
 
     // ViewModel
     viewModelScope = "2.5.1"
-    viewModelActivtyKtx = "1.6.1"
+    viewModelFragmentKtx = "1.5.5"
 
     // Android UI
     appCompat = "1.5.1"
