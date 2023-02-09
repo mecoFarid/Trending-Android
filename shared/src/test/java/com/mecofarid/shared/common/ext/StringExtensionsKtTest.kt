@@ -1,7 +1,7 @@
 package com.mecofarid.shared.common.ext
 
-import com.mecofarid.trending.domain.common.ext.toNA
-import com.mecofarid.trending.randomString
+import com.mecofarid.shared.domain.common.ext.toNA
+import com.mecofarid.test.randomString
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

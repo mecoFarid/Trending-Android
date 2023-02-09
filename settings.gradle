@@ -13,6 +13,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Trending"
-include ':app'
+include ':androidViewApp'
+include ':jetpackComposeApp'
 include ':shared-mock'
 include ':shared'

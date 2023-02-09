@@ -67,7 +67,6 @@ tasks.withType(Detekt).configureEach {
 dependencies {
 
     implementation project(':shared')
-    debugImplementation project(':shared-mock')
 
     // Android UI
     implementation "androidx.appcompat:appcompat:$appCompat"
@@ -79,12 +78,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelScope"
     implementation "androidx.fragment:fragment-ktx:$viewModelFragmentKtx"
 
-    // Lottie
-    implementation "com.airbnb.android:lottie:$lottie"
-
-    // Shimmer
-    implementation "com.facebook.shimmer:shimmer:$shimmer"
-
-    // Glide
+    implementation "com.airbnb.android:lottie:$lottieAndroidView"
+    implementation "com.facebook.shimmer:shimmer:$shimmerAndroidView"
     implementation "com.github.bumptech.glide:glide:$glide"
 }

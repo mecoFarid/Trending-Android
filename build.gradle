@@ -3,7 +3,6 @@
 buildscript {
     ext {
         androidGradlePlugin = '7.3.1'
-        kotlinAndroidPlugin = '1.7.20'
         kotlinSerializationPlugin = '1.8.0'
 
         // Project
@@ -13,7 +12,7 @@ buildscript {
         desugarJdkLibrary = "1.1.6"
 
         // Kotlin
-        kotlin = "1.9.0"
+        kotlin = "1.8.0"
 
         // Kotlin Coroutines
         kotlinCoroutines = "1.6.4"
@@ -29,6 +28,21 @@ buildscript {
         recyclerView = '1.2.1'
         swiperefresh = "1.1.0"
 
+        lottieAndroidView = "5.2.0"
+        shimmerAndroidView = "0.5.0"
+        glide = "4.14.2"
+
+        // Jetpack Compose UI
+        composeCompiler = "1.4.0"
+        composeBom = "2023.01.00"
+        activityCompose = "1.7.0-alpha04"
+        composeConstraintLayout = "1.0.1"
+        navigationCompose = "2.6.0-alpha05"
+
+        coil = "2.2.2"
+        lottieCompose = "5.2.0"
+        shimmerCompose = "1.0.4"
+
         // Room
         room = "2.5.0"
 
@@ -41,13 +55,6 @@ buildscript {
         kotlinxSerialization = "1.4.1"
 
         // Lottie
-        lottie = "5.2.0"
-
-        // Shimmer
-        shimmer = "0.5.0"
-
-        // Glide
-        glide = "4.14.2"
 
         // Code Style
         detekt = "1.20.0"
@@ -64,7 +71,8 @@ buildscript {
 }
 
 plugins {
+    //trick: for the same plugin versions in all sub-modules
+    id 'org.jetbrains.kotlin.android' version "$kotlin" apply false
     id 'com.android.application' version "$androidGradlePlugin" apply false
     id 'com.android.library' version "$androidGradlePlugin" apply false
-    id 'org.jetbrains.kotlin.android' version "$kotlinAndroidPlugin" apply false
 }

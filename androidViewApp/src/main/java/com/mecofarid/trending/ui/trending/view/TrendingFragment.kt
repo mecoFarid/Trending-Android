@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.mecofarid.shared.app.appComponent
 import com.mecofarid.shared.domain.features.trending.domain.model.Trending
 import com.mecofarid.shared.ui.trending.TrendingViewModel
 import com.mecofarid.trending.R
@@ -16,10 +15,7 @@ import com.mecofarid.trending.databinding.FragmentTrendingBinding
 class TrendingFragment : Fragment(){
 
     private lateinit var binding: FragmentTrendingBinding
-    private val viewModel by viewModels<TrendingViewModel> {
-        val appComponent = requireActivity().application.appComponent()
-        TrendingViewModel.factory(appComponent.trendingComponent().getTrendingInteractor())
-    }
+    private val viewModel by viewModels<TrendingViewModel> { TrendingViewModel.Factory }
     private val trendingAdapter by lazy { TrendingAdapter(this) }
 
     override fun onCreateView(

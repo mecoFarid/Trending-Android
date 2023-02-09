@@ -33,7 +33,7 @@
             app:layout_constraintStart_toEndOf="@id/avatar"
             android:layout_marginStart="@dimen/gu_2"
             android:paddingEnd="@dimen/gu_2"
-            style="@style/Widget.Trending.TextAppearance.TrendingItem.Secondary"
+            style="@style/Widget.Trending.TextAppearance.TrendingItem.Primary"
             android:text="@{repoView.trending.owner.login, default = Owner}" />
 
         <TextView
@@ -44,7 +44,7 @@
             app:layout_constraintStart_toEndOf="@id/avatar"
             app:layout_constraintStart_toStartOf="@id/owner"
             android:paddingEnd="@dimen/gu_2"
-            style="@style/Widget.Trending.TextAppearance.TrendingItem.Primary"
+            style="@style/Widget.Trending.TextAppearance.TrendingItem.Secondary"
             android:text="@{repoView.trending.name, default = Name}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,6 +53,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/name"
             app:layout_constraintStart_toStartOf="@id/owner"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/gu"
             app:visible="@{repoView.isExpanded()}"
             android:paddingEnd="@dimen/gu_2">
@@ -61,7 +62,6 @@
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/gu_2"
                 android:paddingEnd="@dimen/gu_2"
                 app:layout_constraintTop_toTopOf="parent"
                 style="@style/Widget.Trending.TextAppearance.TrendingItem.Secondary"
@@ -69,31 +69,35 @@
                 tool:text="Loooooooooooong Description"/>
 
             <com.mecofarid.trending.common.widget.IconizedTextView
-                android:id="@+id/language"
-                android:layout_width="wrap_content"
+                android:id="@+id/star_count"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/description"
                 app:layout_constraintStart_toStartOf="@id/description"
+                app:layout_constraintEnd_toStartOf="@id/language"
+                app:layout_constraintHorizontal_weight="1"
                 android:layout_marginTop="@dimen/gu_0.5"
-                app:drawableStartSize="@dimen/gu_0.75"
-                android:drawableLeft="@drawable/ic_circle"
-                android:drawablePadding="@dimen/gu_0.5"
-                style="@style/Widget.Trending.TextAppearance.TrendingItem.Secondary"
-                android:text='@{repoView.trending.language ?? "N/A", default = Kotlin}'/>
-
-            <com.mecofarid.trending.common.widget.IconizedTextView
-                android:id="@+id/star_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/language"
-                app:layout_constraintBottom_toBottomOf="@id/language"
-                app:layout_constraintStart_toEndOf="@id/language"
-                android:layout_marginStart="@dimen/gu_2"
-                android:drawableLeft="@drawable/ic_star"
                 app:drawableStartSize="@dimen/gu_1.25"
+                android:drawableLeft="@drawable/ic_star"
                 android:drawablePadding="@dimen/gu_0.5"
                 style="@style/Widget.Trending.TextAppearance.TrendingItem.Secondary"
                 android:text="@{String.valueOf(repoView.trending.stargazersCount), default = 115}"/>
+
+            <com.mecofarid.trending.common.widget.IconizedTextView
+                android:id="@+id/language"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/star_count"
+                app:layout_constraintBottom_toBottomOf="@id/star_count"
+                app:layout_constraintStart_toEndOf="@id/star_count"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                android:layout_marginStart="@dimen/gu_2"
+                android:drawableLeft="@drawable/ic_circle"
+                app:drawableStartSize="@dimen/gu_0.75"
+                android:drawablePadding="@dimen/gu_0.5"
+                style="@style/Widget.Trending.TextAppearance.TrendingItem.Secondary"
+                android:text='@{repoView.trending.language ?? "N/A", default = Kotlin}'/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

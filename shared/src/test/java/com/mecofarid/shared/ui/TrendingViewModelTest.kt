@@ -9,9 +9,9 @@ import com.mecofarid.shared.helper.CoroutinesTestRule
 import com.mecofarid.shared.helper.awaitValues
 import com.mecofarid.shared.ui.trending.TrendingViewModel
 import com.mecofarid.shared.ui.trending.TrendingViewModel.State
+import com.mecofarid.test.anyList
 import com.mecofarid.test.feature.repo.anyTrending
-import com.mecofarid.trending.anyList
-import com.mecofarid.trending.randomInt
+import com.mecofarid.test.randomInt
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify

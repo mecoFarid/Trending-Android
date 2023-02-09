@@ -1,6 +1,5 @@
 package com.mecofarid.shared.cache
 
-import com.mecofarid.shared.anyList
 import com.mecofarid.shared.domain.common.data.NetworkException
 import com.mecofarid.shared.domain.common.data.Operation
 import com.mecofarid.shared.domain.common.data.datasource.Datasource
@@ -8,8 +7,9 @@ import com.mecofarid.shared.domain.common.data.repository.cache.CacheRepository
 import com.mecofarid.shared.domain.common.either.Either
 import com.mecofarid.shared.domain.features.trending.data.query.GetAllTrendingQuery
 import com.mecofarid.shared.domain.features.trending.domain.model.Trending
-import com.mecofarid.shared.randomInt
+import com.mecofarid.test.anyList
 import com.mecofarid.test.feature.repo.anyTrending
+import com.mecofarid.test.randomInt
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify

@@ -3,18 +3,17 @@ package com.mecofarid.test.feature.repo
 import com.mecofarid.shared.domain.features.trending.data.source.local.entity.TrendingLocalEntity
 import com.mecofarid.shared.domain.features.trending.data.source.remote.entity.TrendingRemoteEntity
 import com.mecofarid.shared.domain.features.trending.domain.model.Trending
-import com.mecofarid.test.randomInt
 import com.mecofarid.test.randomLong
 import com.mecofarid.test.randomString
 
 fun anyTrendingLocalEntity() =
     TrendingLocalEntity(
+        randomLong(),
         randomString(),
         randomString(),
         randomLong(),
         randomString(),
-        anyOwnerLocalEntity(),
-        randomInt()
+        anyOwnerLocalEntity()
     )
 
 fun anyOwnerLocalEntity() =
@@ -25,6 +24,7 @@ fun anyOwnerLocalEntity() =
 
 fun anyTrendingRemoteEntity() =
     TrendingRemoteEntity(
+        randomLong(),
         randomString(),
         randomString(),
         randomLong(),
@@ -40,6 +40,7 @@ fun anyOwnerRemoteEntity() =
 
 fun anyTrending() =
     Trending(
+        randomLong(),
         randomString(),
         randomString(),
         randomLong(),

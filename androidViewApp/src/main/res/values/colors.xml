@@ -7,8 +7,6 @@
 
     <color name="trending_item_primary_text_color">@color/dark_blue</color>
     <color name="trending_item_secondary_text_color">@color/dark_blue</color>
-    <color name="trending_item_language_indicator_color">#4481cf</color>
-    <color name="trending_item_star_color">#ffb355</color>
 
     <color name="view_placeholder_bg">#ebedf0</color>
 </resources>

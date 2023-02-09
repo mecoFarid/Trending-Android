@@ -11,6 +11,7 @@ class TrendingLocalEntityToTrendingMapper(
     override fun map(input: TrendingLocalEntity): Trending =
         with(input) {
             Trending(
+                id,
                 name,
                 language,
                 stargazersCount,

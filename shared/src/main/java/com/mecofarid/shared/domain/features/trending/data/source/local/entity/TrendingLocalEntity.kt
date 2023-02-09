@@ -6,12 +6,12 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class TrendingLocalEntity(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String,
     val language: String?,
     val stargazersCount: Long,
     val description: String?,
-    @Embedded val owner: OwnerLocalEntity,
-    @PrimaryKey(autoGenerate = true) val id: Int = 0
+    @Embedded val owner: OwnerLocalEntity
 ){
     data class OwnerLocalEntity(
         val login: String,

@@ -12,6 +12,7 @@ class TrendingRemoteEntityToTrendingMapper(
     override fun map(input: TrendingRemoteEntity): Trending =
         with(input){
             Trending(
+                id,
                 name,
                 language,
                 stargazersCount,

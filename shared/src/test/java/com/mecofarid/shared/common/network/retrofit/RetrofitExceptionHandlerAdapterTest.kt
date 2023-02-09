@@ -1,8 +1,10 @@
 package com.mecofarid.shared.common.network.retrofit
 
-import com.mecofarid.trending.domain.common.data.NetworkException
-import com.mecofarid.trending.libs.network.client.retrofit.RetrofitExceptionHandlerAdapterFactory
-import com.mecofarid.trending.randomInt
+import com.mecofarid.shared.domain.common.data.DataException
+import com.mecofarid.shared.domain.common.data.Mapper
+import com.mecofarid.shared.domain.common.data.NetworkException
+import com.mecofarid.shared.libs.network.client.retrofit.RetrofitExceptionHandlerAdapterFactory
+import com.mecofarid.test.randomInt
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -22,9 +24,9 @@ internal class RetrofitExceptionHandlerAdapterTest{
         @BeforeClass
         @JvmStatic
         fun setUp() {
-            val exceptionMapper = object :
-                com.mecofarid.shared.domain.common.data.Mapper<Throwable, Throwable> {
-                override fun map(input: Throwable): Throwable = com.mecofarid.shared.domain.common.data.DataException.DataNotFoundException(input)
+            val exceptionMapper = object : Mapper<Throwable, Throwable> {
+                override fun map(input: Throwable): Throwable =
+                    DataException.DataNotFoundException(input)
             }
             mockWebServer = MockWebServer()
             mockWebServer.start()
@@ -56,13 +58,14 @@ internal class RetrofitExceptionHandlerAdapterTest{
     @Test
     fun `assert exception is thrown when client side fails`() = runTest {
         val httpCode = randomInt(min = 300, max = 599)
-        val expectedException = com.mecofarid.shared.domain.common.data.DataException.DataNotFoundException(NetworkException.HttpException(httpCode))
+        val expectedException =
+            DataException.DataNotFoundException(NetworkException.HttpException(httpCode))
         enqueueWithBody(httpCode, null)
 
         val actualException = try {
             testService.getUser()
             null
-        } catch (e: com.mecofarid.shared.domain.common.data.DataException.DataNotFoundException){
+        } catch (e: DataException.DataNotFoundException){
             e
         }
 

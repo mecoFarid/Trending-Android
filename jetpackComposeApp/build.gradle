@@ -1,0 +1,54 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace = "com.mecofarid.trending"
+    compileSdk rootProject.compileSdk
+    defaultConfig {
+        applicationId = "com.mecofarid.trending"
+        minSdk rootProject.minSdk
+        targetSdk rootProject.targetSdk
+        versionCode 1
+        versionName "1.0"
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = rootProject.composeCompiler
+    }
+    packagingOptions {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+    implementation(project(":shared"))
+
+    implementation(platform("androidx.compose:compose-bom:$composeBom"))
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.runtime:runtime-livedata")
+    implementation("androidx.activity:activity-compose:$activityCompose")
+    implementation("androidx.constraintlayout:constraintlayout-compose:$composeConstraintLayout")
+    implementation("androidx.navigation:navigation-compose:$navigationCompose")
+
+    debugImplementation project(':shared-mock')
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    debugImplementation("androidx.compose.ui:ui-tooling-preview")
+
+    implementation("io.coil-kt:coil-compose:$coil")
+    implementation("com.airbnb.android:lottie-compose:$lottieCompose")
+    implementation("com.valentinilk.shimmer:compose-shimmer:$shimmerCompose")
+}
