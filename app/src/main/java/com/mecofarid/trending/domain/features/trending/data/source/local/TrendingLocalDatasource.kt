@@ -1,30 +1,38 @@
 package com.mecofarid.trending.domain.features.trending.data.source.local
 
+import com.mecofarid.trending.domain.common.either.Either
 import com.mecofarid.trending.domain.common.data.DataException
-import com.mecofarid.trending.domain.common.data.Datasource
 import com.mecofarid.trending.domain.common.data.Query
-import com.mecofarid.trending.domain.features.trending.data.query.GetAllTrendingsQuery
+import com.mecofarid.trending.domain.common.data.datasource.Datasource
+import com.mecofarid.trending.domain.features.trending.data.TrendingResult
+import com.mecofarid.trending.domain.features.trending.data.query.GetAllTrendingQuery
 import com.mecofarid.trending.domain.features.trending.data.source.local.dao.TrendingLocalEntityDao
 import com.mecofarid.trending.domain.features.trending.data.source.local.entity.TrendingLocalEntity
 
 class TrendingLocalDatasource(
     private val trendingLocalEntityDao: TrendingLocalEntityDao
-): Datasource<List<TrendingLocalEntity>> {
-    override suspend fun get(query: Query): List<TrendingLocalEntity> = when (query) {
-        GetAllTrendingsQuery -> getTrendingsOrThrow()
+): Datasource<List<TrendingLocalEntity>, DataException> {
+
+    override suspend fun get(query: Query): TrendingResult<TrendingLocalEntity> = when (query) {
+        is GetAllTrendingQuery -> getAllTrending()
         else -> throw UnsupportedOperationException("Get with query type ($query) is not supported")
     }
 
-    override suspend fun put(query: Query, data: List<TrendingLocalEntity>): List<TrendingLocalEntity> =
+    override suspend fun put(
+        query: Query,
+        data: List<TrendingLocalEntity>
+    ): TrendingResult<TrendingLocalEntity> =
         when (query) {
-            GetAllTrendingsQuery -> data.apply {
-                trendingLocalEntityDao.deleteAllTrendingAndInsert(this)
+            is GetAllTrendingQuery -> Either.Right(data).apply {
+                trendingLocalEntityDao.deleteAllTrendingAndInsert(this.value)
             }
             else -> throw UnsupportedOperationException("Put with query type ($query) is not supported")
         }
 
-    private suspend fun getTrendingsOrThrow() = trendingLocalEntityDao.getAllTrendings().also {
-        if (it.isEmpty())
-            throw DataException.DataNotFoundException()
+    private suspend fun getAllTrending() = with(trendingLocalEntityDao.getAllTrendings()) {
+        return@with if (isEmpty())
+            Either.Left(DataException.DataNotFoundException())
+        else
+            Either.Right(this)
     }
 }

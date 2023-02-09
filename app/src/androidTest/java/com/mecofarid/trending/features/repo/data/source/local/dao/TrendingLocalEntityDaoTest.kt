@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import com.mecofarid.test.feature.repo.anyRepoLocalEntity
+import com.mecofarid.test.feature.repo.anyTrendingLocalEntity
 import com.mecofarid.trending.anyList
 import com.mecofarid.trending.domain.features.trending.data.source.local.dao.TrendingLocalEntityDao
 import com.mecofarid.trending.domain.features.trending.data.source.local.entity.TrendingLocalEntity
@@ -60,7 +60,7 @@ internal class TrendingLocalEntityDaoTest {
         var id = 0
         return anyList {
             id++
-            anyRepoLocalEntity().copy(id = id)
+            anyTrendingLocalEntity().copy(id = id)
         }
     }
 }

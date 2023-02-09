@@ -7,7 +7,7 @@ import com.mecofarid.trending.randomInt
 import com.mecofarid.trending.randomLong
 import com.mecofarid.trending.randomString
 
-fun anyRepoLocalEntity() =
+fun anyTrendingLocalEntity() =
     TrendingLocalEntity(
         randomString(),
         randomString(),
@@ -23,7 +23,7 @@ fun anyOwnerLocalEntity() =
         randomString()
     )
 
-fun anyRepoRemoteEntity() =
+fun anyTrendingRemoteEntity() =
     TrendingRemoteEntity(
         randomString(),
         randomString(),
@@ -38,7 +38,7 @@ fun anyOwnerRemoteEntity() =
         randomString()
     )
 
-fun anyRepo() =
+fun anyTrending() =
     Trending(
         randomString(),
         randomString(),

@@ -2,7 +2,9 @@ package com.mecofarid.trending.libs.network.client.retrofit
 
 import com.mecofarid.trending.domain.common.data.DataException
 import com.mecofarid.trending.domain.common.data.Mapper
+import com.mecofarid.trending.domain.common.data.datasource.network.NetworkService
 import com.mecofarid.trending.domain.di.network.NetworkComponent
+import com.mecofarid.trending.domain.features.trending.data.source.remote.entity.TrendingRemoteEntity
 import com.mecofarid.trending.domain.features.trending.data.source.remote.service.TrendingService
 import com.mecofarid.trending.libs.network.serialization.JsonConverter
 import java.util.concurrent.TimeUnit
@@ -18,7 +20,7 @@ class NetworkRetrofitModule(
     private val jsonConverter: JsonConverter
 ): NetworkComponent {
 
-    private val service by lazy {
+    private val retrofitService by lazy {
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
@@ -40,8 +42,9 @@ class NetworkRetrofitModule(
             .addConverterFactory(jsonConverter.converterFactory())
             .build()
 
-        retrofit.create(TrendingService::class.java)
+        retrofit.create(RetrofitService::class.java)
     }
 
-    override fun trendingService(): TrendingService = service
+    override fun trendingService(): NetworkService<List<TrendingRemoteEntity>> =
+        TrendingService(retrofitService)
 }

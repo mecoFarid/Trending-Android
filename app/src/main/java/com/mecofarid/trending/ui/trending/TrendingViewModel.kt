@@ -5,14 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.mecofarid.trending.domain.common.data.DataException
 import com.mecofarid.trending.domain.common.data.Operation
-import com.mecofarid.trending.domain.features.trending.data.query.GetAllTrendingsQuery
+import com.mecofarid.trending.domain.features.trending.data.query.GetAllTrendingQuery
 import com.mecofarid.trending.domain.features.trending.domain.interactor.GetTrendingInteractor
 import com.mecofarid.trending.domain.features.trending.domain.model.Trending
 import kotlinx.coroutines.launch
 
-class TrendingViewModel(private val repoInteractor: GetTrendingInteractor): ViewModel() {
+class TrendingViewModel(private val trendingInteractor: GetTrendingInteractor): ViewModel() {
 
     companion object {
         fun factory(repoInteractor: GetTrendingInteractor) = viewModelFactory {
@@ -43,12 +42,11 @@ class TrendingViewModel(private val repoInteractor: GetTrendingInteractor): View
     private fun loadData(operation: Operation) {
         state = State.Loading
         viewModelScope.launch {
-            state = try {
-                val data = repoInteractor(GetAllTrendingsQuery, operation)
-                State.Success(data)
-            } catch (ignore: DataException.DataNotFoundException) {
-                State.NoData
-            }
+            state = trendingInteractor(GetAllTrendingQuery(), operation)
+                .fold(
+                    ifLeft = { State.NoData },
+                    ifRight = { State.Success(it) }
+                )
         }
     }
 

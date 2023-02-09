@@ -20,7 +20,6 @@
             android:id="@+id/avatar"
             android:layout_width="@dimen/gu_4"
             android:layout_height="@dimen/gu_4"
-            android:background="@drawable/circle_placeholder_bg"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:imageUrl="@{repoView.trending.owner.avatarUrl}"
