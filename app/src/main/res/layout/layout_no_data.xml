@@ -2,63 +2,31 @@
 <layout>
 
     <data>
-        <import type="com.mecofarid.trending.ui.trending.TrendingViewModel"/>
+        <import type="com.mecofarid.shared.ui.trending.TrendingViewModel"/>
         <variable
             name="viewModel"
-            type="com.mecofarid.trending.ui.trending.TrendingViewModel"/>
+            type="com.mecofarid.shared.ui.trending.TrendingViewModel"/>
     </data>
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/no_data_holder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:isNoData="@{viewModel.uiState}">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="@dimen/gu_6"
-            android:layout_marginEnd="@dimen/gu_6"
-            android:layout_marginBottom="@dimen/gu_4"
-            android:layout_marginTop="@dimen/gu_2">
+        android:layout_marginStart="@dimen/gu_6"
+        android:layout_marginEnd="@dimen/gu_6">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:lottie_rawRes="@raw/no_data"
                 app:lottie_loop="true"
-                app:lottie_autoPlay="true" />
+                app:lottie_autoPlay="true"
+                app:isNoData="@{viewModel.uiState}" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/no_data_title"
-                style="@style/Widget.Trending.TextAppearance.Title"
-                android:layout_marginTop="@dimen/gu_2"
-                android:gravity="center_horizontal"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/no_data_message"
-                style="@style/Widget.Trending.TextAppearance.Body"
-                android:layout_marginTop="@dimen/gu"
-                android:gravity="center_horizontal"/>
-
-            <Button
-                android:id="@+id/retry_btn"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                style="@style/Widget.Trending.Button.RetryButton"
-                android:layout_marginTop="@dimen/gu_8"
-                android:text="@string/retry_btn_title"
-                android:onClick="@{() -> viewModel.refresh()}"/>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-    </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

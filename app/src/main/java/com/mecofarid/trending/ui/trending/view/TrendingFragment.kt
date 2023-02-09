@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.mecofarid.shared.app.appComponent
+import com.mecofarid.shared.domain.features.trending.domain.model.Trending
+import com.mecofarid.shared.ui.trending.TrendingViewModel
 import com.mecofarid.trending.R
-import com.mecofarid.trending.app.appComponent
 import com.mecofarid.trending.databinding.FragmentTrendingBinding
-import com.mecofarid.trending.domain.features.trending.domain.model.Trending
-import com.mecofarid.trending.ui.trending.TrendingViewModel
 
 class TrendingFragment : Fragment(){
 

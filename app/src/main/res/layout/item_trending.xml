@@ -76,7 +76,7 @@
                 app:layout_constraintStart_toStartOf="@id/description"
                 android:layout_marginTop="@dimen/gu_0.5"
                 app:drawableStartSize="@dimen/gu_0.75"
-                android:drawableLeft="@drawable/circle_language_indicator"
+                android:drawableLeft="@drawable/ic_circle"
                 android:drawablePadding="@dimen/gu_0.5"
                 style="@style/Widget.Trending.TextAppearance.TrendingItem.Secondary"
                 android:text='@{repoView.trending.language ?? "N/A", default = Kotlin}'/>

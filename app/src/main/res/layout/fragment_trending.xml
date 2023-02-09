@@ -2,10 +2,10 @@
 <layout xmlns:bind="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.mecofarid.trending.ui.trending.TrendingViewModel"/>
+        <import type="com.mecofarid.shared.ui.trending.TrendingViewModel"/>
         <variable
             name="viewModel"
-            type="com.mecofarid.trending.ui.trending.TrendingViewModel" />
+            type="com.mecofarid.shared.ui.trending.TrendingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

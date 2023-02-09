@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="toolbar_title_color">@android:color/white</color>
-    <color name="error_title_color">@android:color/white</color>
-    <color name="error_message_color">@android:color/white</color>
-
     <color name="trending_item_primary_text_color">@android:color/white</color>
     <color name="trending_item_secondary_text_color">@android:color/white</color>
 

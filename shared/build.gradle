@@ -1,0 +1,74 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+
+    id 'org.jetbrains.kotlin.plugin.serialization' version "$kotlinSerializationPlugin"
+}
+
+android {
+    namespace 'com.mecofarid.shared'
+    compileSdk rootProject.compileSdk
+
+    defaultConfig {
+        minSdk rootProject.minSdk
+        targetSdk rootProject.targetSdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$desugarJdkLibrary"
+
+    // Android UI
+    api "com.google.android.material:material:$materialUi"
+
+    // Kotlin
+    implementation "androidx.core:core-ktx:$kotlin"
+
+    // Kotlin Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines"
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelScope"
+
+    // Room
+    implementation "androidx.room:room-runtime:$room"
+    implementation "androidx.room:room-ktx:$room"
+    annotationProcessor "androidx.room:room-compiler:$room"
+    kapt "androidx.room:room-compiler:$room"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit"
+    implementation "com.squareup.okhttp3:logging-interceptor:$retrofitLogging"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$retrofitKotlinxSerialization"
+
+    // KotlinX Serialization
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerialization"
+
+    // Test
+    testImplementation(project(":shared-mock"))
+    testImplementation "junit:junit:$jUnit"
+    testImplementation "io.mockk:mockk:$mockk"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinCoroutines"
+    testImplementation "androidx.test:core-ktx:$kotlinAndroidTest"
+    testImplementation "androidx.test.ext:junit:$jUnitAndroidX"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$okHttp"
+    testImplementation "androidx.arch.core:core-testing:$androidArchCore"
+
+    androidTestImplementation project(':shared-mock')
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinCoroutines"
+    androidTestImplementation "androidx.test.ext:junit:$jUnitAndroidX"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
+}
