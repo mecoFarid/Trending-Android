@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="white">@android:color/white</color>
+
     <color name="trending_item_language_indicator_color">#4481cf</color>
     <color name="trending_item_star_color">#ffb355</color>
 </resources>

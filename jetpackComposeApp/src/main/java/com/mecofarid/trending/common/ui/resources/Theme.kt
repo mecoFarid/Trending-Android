@@ -42,6 +42,8 @@ private val MaterialDarkColorScheme = darkColorScheme(
 )
 
 private val MaterialLightColorScheme = lightColorScheme(
+    surface = Color.White,
+    background = Color.White,
     primaryContainer = Colors.Orange,
     onPrimaryContainer = Color.White
 )

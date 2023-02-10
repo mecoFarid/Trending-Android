@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="dark_blue">#CC2B3445</color>
-    <color name="white">@android:color/white</color>
-
-    <color name="status_bar_color">@color/dark_blue</color>
 
     <color name="trending_item_primary_text_color">@color/dark_blue</color>
     <color name="trending_item_secondary_text_color">@color/dark_blue</color>
