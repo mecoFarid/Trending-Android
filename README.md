@@ -1,20 +1,34 @@
 # Simple Clean Architecture Android App.
 
-## Production:
+## Production
 
+### Data, Business and Presentation layer
 - Kotlin Coroutines
-- LiveData
-- MVVM pattern
 - Room
 - Retrofit
 - KotlinX Serialization
-- Material UI
-- Glide
-- Lottie Animations
+- LiveData
+- MVVM pattern
 
-## Testing:
+### UI
+- Android View
+    - Android Material Design
+    - Glide
+    - Lottie Animations
+    - DataBinding
+
+- Jetpack Compose
+    - Jetpack Compose Material Design
+    - Jetpack Compose Navigation
+    - Coil Compose
+    - Lottie Animations Compose
+
+## Testing
 - JUnit
 - Mockk
+
+## Code Styling/Analyzing
+- Detekt
 
 
 
