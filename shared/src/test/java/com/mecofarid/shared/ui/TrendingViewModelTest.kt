@@ -1,6 +1,7 @@
 package com.mecofarid.shared.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.mecofarid.shared.domain.common.data.DataException
 import com.mecofarid.shared.domain.common.data.Operation
 import com.mecofarid.shared.domain.common.either.Either
 import com.mecofarid.shared.domain.features.trending.data.query.GetAllTrendingQuery
@@ -73,7 +74,7 @@ internal class TrendingViewModelTest {
                 getTrendingInteractor(any(), any())
             } coAnswers {
                 delay(100)
-                Either.Left(com.mecofarid.shared.domain.common.data.DataException.DataNotFoundException())
+                Either.Left(DataException.DataNotFoundException())
             }
             val viewModel = givenViewModel()
 
@@ -100,7 +101,7 @@ internal class TrendingViewModelTest {
                 getTrendingInteractor(any(), any())
             } coAnswers {
                 delay(dataDelay)
-                Either.Left(com.mecofarid.shared.domain.common.data.DataException.DataNotFoundException())
+                Either.Left(DataException.DataNotFoundException())
             }
             val viewModel = givenViewModel()
 

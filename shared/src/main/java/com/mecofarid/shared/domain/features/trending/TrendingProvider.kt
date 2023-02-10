@@ -1,11 +1,22 @@
 package com.mecofarid.shared.domain.features.trending
 
-import com.mecofarid.shared.domain.common.data.*
+import com.mecofarid.shared.domain.common.data.DataException
+import com.mecofarid.shared.domain.common.data.DatasourceMapper
+import com.mecofarid.shared.domain.common.data.ListMapper
+import com.mecofarid.shared.domain.common.data.Mapper
+import com.mecofarid.shared.domain.common.data.NetworkException
+import com.mecofarid.shared.domain.common.data.VoidMapper
 import com.mecofarid.shared.domain.common.data.datasource.network.NetworkDatasource
 import com.mecofarid.shared.domain.common.data.repository.cache.CacheRepository
 import com.mecofarid.shared.domain.di.db.DbComponent
 import com.mecofarid.shared.domain.di.network.NetworkComponent
-import com.mecofarid.shared.domain.features.trending.data.mapper.*
+import com.mecofarid.shared.domain.features.trending.data.mapper.OwnerLocalEntityToOwnerMapper
+import com.mecofarid.shared.domain.features.trending.data.mapper.OwnerRemoteEntityToOwnerMapper
+import com.mecofarid.shared.domain.features.trending.data.mapper.OwnerToOwnerLocalEntityMapper
+import com.mecofarid.shared.domain.features.trending.data.mapper.TrendingLocalEntityToTrendingMapper
+import com.mecofarid.shared.domain.features.trending.data.mapper.TrendingRemoteEntityToTrendingMapper
+import com.mecofarid.shared.domain.features.trending.data.mapper.TrendingToTrendingLocalEntityMapper
+
 import com.mecofarid.shared.domain.features.trending.data.source.local.TrendingLocalDatasource
 import com.mecofarid.shared.domain.features.trending.domain.interactor.GetTrendingInteractor
 

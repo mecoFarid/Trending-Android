@@ -1,5 +1,6 @@
 package com.mecofarid.shared.libs.network.client.retrofit
 
+import com.mecofarid.shared.domain.common.data.Mapper
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
@@ -7,7 +8,7 @@ import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
 class RetrofitExceptionHandlerAdapterFactory(
-    private val exceptionMapper : com.mecofarid.shared.domain.common.data.Mapper<Throwable, Throwable>
+    private val exceptionMapper : Mapper<Throwable, Throwable>
 ): CallAdapter.Factory() {
     override fun get(
             returnType: Type, annotations: Array<Annotation>, retrofit: Retrofit

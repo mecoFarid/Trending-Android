@@ -1,5 +1,6 @@
 package com.mecofarid.shared.cache
 
+import com.mecofarid.shared.domain.common.data.DataException
 import com.mecofarid.shared.domain.common.data.NetworkException
 import com.mecofarid.shared.domain.common.data.Operation
 import com.mecofarid.shared.domain.common.data.datasource.Datasource
@@ -24,10 +25,10 @@ import org.junit.Test
 internal class CacheRepositoryTest {
 
     @MockK
-    private lateinit var cacheDatasource: Datasource<List<Trending>, com.mecofarid.shared.domain.common.data.DataException>
+    private lateinit var cacheDatasource: Datasource<List<Trending>, DataException>
 
     @MockK
-    private lateinit var mainDatasource: Datasource<List<Trending>, com.mecofarid.shared.domain.common.data.DataException>
+    private lateinit var mainDatasource: Datasource<List<Trending>, DataException>
 
     @Before
     fun setUp() {
@@ -59,7 +60,7 @@ internal class CacheRepositoryTest {
         val cacheData =
             listOf(
                 Either.Right(anyList { anyTrending() }),
-                Either.Left(com.mecofarid.shared.domain.common.data.DataException.DataNotFoundException())
+                Either.Left(DataException.DataNotFoundException())
             ).random()
         val mainException = listOf(
             NetworkException.HttpException(randomInt()),
@@ -87,7 +88,7 @@ internal class CacheRepositoryTest {
         val cacheData =
             listOf(
                 Either.Right(anyList { anyTrending() }),
-                Either.Left(com.mecofarid.shared.domain.common.data.DataException.DataNotFoundException())
+                Either.Left(DataException.DataNotFoundException())
             ).random()
         val repository = givenRepository()
         val query = GetAllTrendingQuery()
@@ -104,7 +105,7 @@ internal class CacheRepositoryTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `assert data fetched from main when cache-else-main-sync is requested but cache data source fails`() = runTest {
-        val cacheDataInitial = Either.Left(com.mecofarid.shared.domain.common.data.DataException.DataNotFoundException())
+        val cacheDataInitial = Either.Left(DataException.DataNotFoundException())
         val mainData = Either.Right(anyList { anyTrending() })
         val cacheDataAfterCache = Either.Right(anyList { anyTrending() })
         val repository = givenRepository()
@@ -126,9 +127,9 @@ internal class CacheRepositoryTest {
     fun `assert error is returned when both data sources fail when main-sync is requested`() = runTest {
         val repository = givenRepository()
         val query = GetAllTrendingQuery()
-        val expectedData = Either.Left(com.mecofarid.shared.domain.common.data.DataException.DataNotFoundException())
+        val expectedData = Either.Left(DataException.DataNotFoundException())
         coEvery { cacheDatasource.get(query) } returns expectedData
-        coEvery { mainDatasource.get(query) } returns Either.Left(com.mecofarid.shared.domain.common.data.DataException.DataNotFoundException())
+        coEvery { mainDatasource.get(query) } returns Either.Left(DataException.DataNotFoundException())
 
         val actualData  = repository.get(query, Operation.SyncMainOperation)
         
@@ -143,9 +144,9 @@ internal class CacheRepositoryTest {
     fun `assert error is returned when both data sources fail when cache-else-main-sync is requested`() = runTest {
         val repository = givenRepository()
         val query = GetAllTrendingQuery()
-        val expectedData = Either.Left(com.mecofarid.shared.domain.common.data.DataException.DataNotFoundException())
+        val expectedData = Either.Left(DataException.DataNotFoundException())
         coEvery { cacheDatasource.get(query) } returns expectedData
-        coEvery { mainDatasource.get(query) } returns Either.Left(com.mecofarid.shared.domain.common.data.DataException.DataNotFoundException())
+        coEvery { mainDatasource.get(query) } returns Either.Left(DataException.DataNotFoundException())
 
         val actualData  = repository.get(query, Operation.CacheElseSyncMainOperation)
 
