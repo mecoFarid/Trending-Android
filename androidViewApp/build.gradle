@@ -51,6 +51,9 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$recyclerView"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefresh"
 
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation"
+
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelScope"
     implementation "androidx.fragment:fragment-ktx:$viewModelFragmentKtx"

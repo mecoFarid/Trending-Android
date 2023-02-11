@@ -3,10 +3,11 @@ package com.mecofarid.trending.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.mecofarid.trending.R
-import com.mecofarid.trending.common.ui.ext.replaceFragment
 import com.mecofarid.trending.databinding.ActivityMainBinding
-import com.mecofarid.trending.ui.trending.view.TrendingFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,8 +15,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addTrendingScreen()
+        setupNavigation()
     }
 
-    private fun addTrendingScreen() = replaceFragment(binding.container.id, TrendingFragment())
+    private fun setupNavigation() {
+        val navHostFragment = supportFragmentManager.findFragmentById(binding.navHost.id) as NavHostFragment
+        val navController = navHostFragment.navController
+        val appBarConfig = AppBarConfiguration(navController.graph)
+        binding.toolbar.setupWithNavController(navController, appBarConfig)
+    }
 }

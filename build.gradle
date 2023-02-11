@@ -28,6 +28,7 @@ buildscript {
         constraintLayout = "2.1.4"
         recyclerView = '1.2.1'
         swiperefresh = "1.1.0"
+        navigation = "2.5.3"
 
         lottieAndroidView = "5.2.0"
         shimmerAndroidView = "0.5.0"
