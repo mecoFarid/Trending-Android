@@ -1,7 +1,5 @@
 package com.mecofarid.shared.libs.network.client.retrofit
 
-import com.mecofarid.shared.domain.common.data.DataException
-import com.mecofarid.shared.domain.common.data.Mapper
 import com.mecofarid.shared.domain.common.data.datasource.network.NetworkService
 import com.mecofarid.shared.domain.di.network.NetworkComponent
 import com.mecofarid.shared.domain.features.trending.data.source.remote.entity.TrendingRemoteEntity
@@ -24,12 +22,6 @@ class NetworkRetrofitModule(
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        val exceptionMapper = object :
-            Mapper<Throwable, Throwable> {
-            override fun map(input: Throwable): Throwable =
-                DataException.DataNotFoundException(input)
-        }
-
         val client = OkHttpClient.Builder()
             .readTimeout(READ_WRITE_TIME_OUT, TimeUnit.SECONDS)
             .writeTimeout(READ_WRITE_TIME_OUT, TimeUnit.SECONDS)
@@ -40,7 +32,7 @@ class NetworkRetrofitModule(
         val retrofit = Retrofit.Builder()
             .client(client)
             .baseUrl(BASE_URL)
-            .addCallAdapterFactory(RetrofitExceptionHandlerAdapterFactory(exceptionMapper))
+            .addCallAdapterFactory(RetrofitExceptionHandlerAdapterFactory())
             .addConverterFactory(jsonConverter.converterFactory())
             .build()
 

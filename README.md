@@ -12,10 +12,11 @@
 
 #### UI
 - Android View
+    - DataBinding
+    - Jetpack Navigation
     - Android Material Design
     - Glide
     - Lottie Animations
-    - DataBinding
 
 - Jetpack Compose
     - Jetpack Compose Material Design
