@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-kapt'
 
     id 'org.jetbrains.kotlin.plugin.serialization' version "$kotlinSerializationPlugin"
+
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -42,6 +44,10 @@ dependencies {
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelScope"
 
+    // DI
+    implementation "com.google.dagger:hilt-android:$dagerHilt"
+    kapt "com.google.dagger:hilt-compiler:$dagerHilt"
+
     // Room
     implementation "androidx.room:room-runtime:$room"
     implementation "androidx.room:room-ktx:$room"
@@ -71,4 +77,8 @@ dependencies {
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinCoroutines"
     androidTestImplementation "androidx.test.ext:junit:$jUnitAndroidX"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
+}
+
+kapt {
+    correctErrorTypes true
 }

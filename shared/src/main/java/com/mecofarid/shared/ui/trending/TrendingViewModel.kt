@@ -1,30 +1,32 @@
 package com.mecofarid.shared.ui.trending
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.mecofarid.shared.app.appComponent
 import com.mecofarid.shared.domain.common.data.Operation
 import com.mecofarid.shared.domain.features.trending.data.query.GetAllTrendingQuery
 import com.mecofarid.shared.domain.features.trending.domain.interactor.GetTrendingInteractor
 import com.mecofarid.shared.domain.features.trending.domain.model.Trending
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TrendingViewModel(private val trendingInteractor: GetTrendingInteractor): ViewModel() {
+
+@HiltViewModel
+class TrendingViewModel @Inject constructor(private val trendingInteractor: GetTrendingInteractor): ViewModel() {
 
     companion object {
         val Factory = viewModelFactory {
-            initializer {
-                val interactor = (this[APPLICATION_KEY] as Application)
-                    .appComponent()
-                    .trendingComponent()
-                    .getTrendingInteractor()
-                TrendingViewModel(interactor)
-            }
+
+
+//            initializer {
+//                val interactor = (this[APPLICATION_KEY] as Application)
+//                    .appComponent()
+//                    .trendingComponent()
+//                    .getTrendingInteractor()
+//                TrendingViewModel(interactor)
+//            }
         }
     }
 

@@ -6,16 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import com.mecofarid.shared.domain.features.trending.domain.model.Trending
 import com.mecofarid.shared.ui.trending.TrendingViewModel
 import com.mecofarid.trending.R
 import com.mecofarid.trending.databinding.FragmentTrendingBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TrendingFragment : Fragment(){
 
     private lateinit var binding: FragmentTrendingBinding
-    private val viewModel by viewModels<TrendingViewModel> { TrendingViewModel.Factory }
+    private val viewModel by hiltNavGraphViewModels<TrendingViewModel>(R.id.trending_nav_graph)
     private val trendingAdapter by lazy { TrendingAdapter(this) }
 
     override fun onCreateView(

@@ -45,6 +45,10 @@ buildscript {
         lottieCompose = "5.2.0"
         shimmerCompose = "1.0.4"
 
+        // DI
+        dagerHilt = "2.45"
+        hiltFragment = "1.0.0"
+
         // Room
         room = "2.5.0"
 
@@ -55,8 +59,6 @@ buildscript {
 
         // KotlinX Serialization
         kotlinxSerialization = "1.4.1"
-
-        // Lottie
 
         // Code Style
         detekt = "1.20.0"
@@ -79,7 +81,10 @@ plugins {
     id 'com.android.library' version "$androidGradlePlugin" apply false
 
     // Detekt
-    id "io.gitlab.arturbosch.detekt" version "$detekt"
+    id "io.gitlab.arturbosch.detekt" version "$detekt" apply false
+
+    // DI
+    id "com.google.dagger.hilt.android" version "$dagerHilt" apply false
 }
 
 subprojects {

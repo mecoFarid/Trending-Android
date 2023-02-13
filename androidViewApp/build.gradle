@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -57,6 +59,11 @@ dependencies {
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelScope"
     implementation "androidx.fragment:fragment-ktx:$viewModelFragmentKtx"
+
+    // DI
+    implementation "androidx.hilt:hilt-navigation-fragment:$hiltFragment"
+    implementation "com.google.dagger:hilt-android:$dagerHilt"
+    kapt "com.google.dagger:hilt-compiler:$dagerHilt"
 
     implementation "com.airbnb.android:lottie:$lottieAndroidView"
     implementation "com.facebook.shimmer:shimmer:$shimmerAndroidView"

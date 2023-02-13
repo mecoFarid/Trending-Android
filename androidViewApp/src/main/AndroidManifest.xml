@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".app.TrendingApplication"
         android:theme="@style/Theme.Trending"
         tools:replace="android:theme"
         tools:ignore="MissingApplicationIcon">

@@ -7,7 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.mecofarid.shared.domain.features.trending.data.source.local.dao.TrendingLocalEntityDao
 import com.mecofarid.shared.domain.features.trending.data.source.local.entity.TrendingLocalEntity
-import com.mecofarid.shared.libs.db.room.DbRoomModule
+import com.mecofarid.shared.libs.db.room.TrendingDatabase
 import com.mecofarid.test.feature.repo.anyTrendingLocalEntity
 import com.mecofarid.trending.anyList
 import com.mecofarid.trending.randomInt
@@ -24,12 +24,12 @@ import org.junit.runner.RunWith
 internal class TrendingLocalEntityDaoTest {
 
     private lateinit var repoDao: TrendingLocalEntityDao
-    private lateinit var db: DbRoomModule
+    private lateinit var db: TrendingDatabase
 
     @Before
     fun setUp() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        db = Room.inMemoryDatabaseBuilder(context, DbRoomModule::class.java).build()
+        db = Room.inMemoryDatabaseBuilder(context, TrendingDatabase::class.java).build()
         repoDao = db.trendingLocalEntityDao()
     }
 
