@@ -3,7 +3,6 @@ package com.mecofarid.shared.ui.trending
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.mecofarid.shared.domain.common.data.Operation
 import com.mecofarid.shared.domain.features.trending.data.query.GetAllTrendingQuery
 import com.mecofarid.shared.domain.features.trending.domain.interactor.GetTrendingInteractor
@@ -15,20 +14,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TrendingViewModel @Inject constructor(private val trendingInteractor: GetTrendingInteractor): ViewModel() {
-
-    companion object {
-        val Factory = viewModelFactory {
-
-
-//            initializer {
-//                val interactor = (this[APPLICATION_KEY] as Application)
-//                    .appComponent()
-//                    .trendingComponent()
-//                    .getTrendingInteractor()
-//                TrendingViewModel(interactor)
-//            }
-        }
-    }
 
     private val internalUiState = MutableLiveData<State>(State.Loading)
     val uiState = internalUiState

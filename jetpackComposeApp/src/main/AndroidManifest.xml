@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".app.TrendingApplication"
         tools:ignore="MissingApplicationIcon">
         <activity
             android:name="com.mecofarid.trending.ui.MainActivity"

@@ -47,7 +47,7 @@ buildscript {
 
         // DI
         dagerHilt = "2.45"
-        hiltFragment = "1.0.0"
+        hiltNavigation = "1.0.0"
 
         // Room
         room = "2.5.0"

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -47,6 +48,11 @@ dependencies {
     debugImplementation project(':shared-mock')
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-tooling-preview")
+
+    // DI
+    implementation "androidx.hilt:hilt-navigation-compose:$hiltNavigation"
+    implementation "com.google.dagger:hilt-android:$dagerHilt"
+    kapt "com.google.dagger:hilt-compiler:$dagerHilt"
 
     implementation("io.coil-kt:coil-compose:$coil")
     implementation("com.airbnb.android:lottie-compose:$lottieCompose")

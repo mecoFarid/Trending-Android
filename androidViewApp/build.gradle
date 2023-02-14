@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-
     id 'com.google.dagger.hilt.android'
 }
 
@@ -61,7 +60,7 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$viewModelFragmentKtx"
 
     // DI
-    implementation "androidx.hilt:hilt-navigation-fragment:$hiltFragment"
+    implementation "androidx.hilt:hilt-navigation-fragment:$hiltNavigation"
     implementation "com.google.dagger:hilt-android:$dagerHilt"
     kapt "com.google.dagger:hilt-compiler:$dagerHilt"
 
