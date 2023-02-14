@@ -9,6 +9,7 @@
 - KotlinX Serialization
 - LiveData
 - MVVM pattern
+- Dagger-Hilt
 
 #### UI
 - Android View
