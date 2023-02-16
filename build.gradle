@@ -45,6 +45,10 @@ buildscript {
         lottieCompose = "5.2.0"
         shimmerCompose = "1.0.4"
 
+        // DI
+        koin = "3.3.3"
+        koinCompose = "3.4.2"
+
         // Room
         room = "2.5.0"
 

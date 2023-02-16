@@ -8,28 +8,20 @@ import com.mecofarid.shared.domain.common.data.NetworkException
 import com.mecofarid.shared.domain.common.data.VoidMapper
 import com.mecofarid.shared.domain.common.data.datasource.network.NetworkDatasource
 import com.mecofarid.shared.domain.common.data.repository.cache.CacheRepository
-import com.mecofarid.shared.domain.di.db.DbComponent
-import com.mecofarid.shared.domain.di.network.NetworkComponent
 import com.mecofarid.shared.domain.features.trending.data.mapper.OwnerLocalEntityToOwnerMapper
 import com.mecofarid.shared.domain.features.trending.data.mapper.OwnerRemoteEntityToOwnerMapper
 import com.mecofarid.shared.domain.features.trending.data.mapper.OwnerToOwnerLocalEntityMapper
 import com.mecofarid.shared.domain.features.trending.data.mapper.TrendingLocalEntityToTrendingMapper
 import com.mecofarid.shared.domain.features.trending.data.mapper.TrendingRemoteEntityToTrendingMapper
 import com.mecofarid.shared.domain.features.trending.data.mapper.TrendingToTrendingLocalEntityMapper
-
 import com.mecofarid.shared.domain.features.trending.data.source.local.TrendingLocalDatasource
 import com.mecofarid.shared.domain.features.trending.domain.interactor.GetTrendingInteractor
+import com.mecofarid.shared.ui.trending.TrendingViewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
+import org.koin.dsl.module
 
-interface TrendingComponent {
-    fun getTrendingInteractor(): GetTrendingInteractor
-}
-
-class TrendingModule(
-    private val dbComponent: DbComponent,
-    private val networkComponent: NetworkComponent
-): TrendingComponent {
-
-    private val repository by lazy {
+internal val trendingModule = module {
+    factory {
         val networkExceptionMapper = object : Mapper<NetworkException, DataException> {
             override fun map(input: NetworkException) = DataException.DataNotFoundException(input)
         }
@@ -43,18 +35,17 @@ class TrendingModule(
             ListMapper(TrendingToTrendingLocalEntityMapper(OwnerToOwnerLocalEntityMapper()))
 
         val mainDatasource = DatasourceMapper(
-            NetworkDatasource(networkComponent.trendingService(), networkExceptionMapper),
+            NetworkDatasource(service = get(), networkExceptionMapper),
             mainOutMapper,
             VoidMapper()
         )
         val cacheDataSource = DatasourceMapper(
-            TrendingLocalDatasource(dbComponent.trendingLocalEntityDao()),
+            TrendingLocalDatasource(trendingLocalEntityDao = get()),
             cacheOutMapper,
             cacheInMapper
         )
 
-        CacheRepository(cacheDataSource, mainDatasource)
+        GetTrendingInteractor(CacheRepository(cacheDataSource, mainDatasource))
     }
-
-    override fun getTrendingInteractor(): GetTrendingInteractor = GetTrendingInteractor(repository)
+    viewModelOf(::TrendingViewModel)
 }

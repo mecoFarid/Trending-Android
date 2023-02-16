@@ -42,6 +42,9 @@ dependencies {
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelScope"
 
+    // DI
+    implementation "io.insert-koin:koin-android:$koin"
+
     // Room
     implementation "androidx.room:room-runtime:$room"
     implementation "androidx.room:room-ktx:$room"

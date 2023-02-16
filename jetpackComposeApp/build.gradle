@@ -48,6 +48,9 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-tooling-preview")
 
+    // DI
+    implementation "io.insert-koin:koin-androidx-compose:$koinCompose"
+
     implementation("io.coil-kt:coil-compose:$coil")
     implementation("com.airbnb.android:lottie-compose:$lottieCompose")
     implementation("com.valentinilk.shimmer:compose-shimmer:$shimmerCompose")

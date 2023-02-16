@@ -58,6 +58,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelScope"
     implementation "androidx.fragment:fragment-ktx:$viewModelFragmentKtx"
 
+    // DI
+    implementation "io.insert-koin:koin-androidx-navigation:$koin"
+
     implementation "com.airbnb.android:lottie:$lottieAndroidView"
     implementation "com.facebook.shimmer:shimmer:$shimmerAndroidView"
     implementation "com.github.bumptech.glide:glide:$glide"
