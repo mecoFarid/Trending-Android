@@ -9,7 +9,9 @@
 - KotlinX Serialization
 - LiveData
 - MVVM pattern
-- Dagger-Hilt
+- Dagger-Hilt ([main](https://github.com/mecoFarid/Trending-Android) branch)
+- Koin ([koin-di](https://github.com/mecoFarid/Trending-Android/tree/koin-di) branch)
+- Manual DI ([manual-di](https://github.com/mecoFarid/Trending-Android/tree/manual-di) branch)
 
 #### UI
 - Android View
