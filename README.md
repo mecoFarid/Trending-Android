@@ -1,5 +1,13 @@
 ## Simple Clean Architecture Android App.
 
+
+| Android View | Jetpack Compose |
+| --- | --- |
+| <img src="https://user-images.githubusercontent.com/17815721/218028053-521dc7a0-7af6-4c86-b920-17adb2b32320.gif" height="500"> | <img src="https://user-images.githubusercontent.com/17815721/218028221-c9982c75-087a-443d-9372-5e206b50b538.gif" height="500"> |
+
+
+
+
 ### Production
 
 #### Data, Business and Presentation layer
@@ -36,10 +44,4 @@
 
 
 ## Result
-
-| Android View | Jetpack Compose |
-| --- | --- |
-| <img src="https://user-images.githubusercontent.com/17815721/218028053-521dc7a0-7af6-4c86-b920-17adb2b32320.gif" height="500"> | <img src="https://user-images.githubusercontent.com/17815721/218028221-c9982c75-087a-443d-9372-5e206b50b538.gif" height="500"> |
-
-
 
