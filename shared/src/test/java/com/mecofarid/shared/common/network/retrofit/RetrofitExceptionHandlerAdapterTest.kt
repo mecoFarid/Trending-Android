@@ -1,7 +1,5 @@
 package com.mecofarid.shared.common.network.retrofit
 
-import com.mecofarid.shared.domain.common.data.DataException
-import com.mecofarid.shared.domain.common.data.Mapper
 import com.mecofarid.shared.domain.common.data.NetworkException
 import com.mecofarid.shared.libs.network.client.retrofit.RetrofitExceptionHandlerAdapterFactory
 import com.mecofarid.test.randomInt
@@ -24,16 +22,12 @@ internal class RetrofitExceptionHandlerAdapterTest{
         @BeforeClass
         @JvmStatic
         fun setUp() {
-            val exceptionMapper = object : Mapper<Throwable, Throwable> {
-                override fun map(input: Throwable): Throwable =
-                    DataException.DataNotFoundException(input)
-            }
             mockWebServer = MockWebServer()
             mockWebServer.start()
             val retrofit =
                 Retrofit.Builder()
                     .baseUrl(mockWebServer.url("/"))
-                    .addCallAdapterFactory(RetrofitExceptionHandlerAdapterFactory(exceptionMapper))
+                    .addCallAdapterFactory(RetrofitExceptionHandlerAdapterFactory())
                     .addConverterFactory(MoshiConverterFactory.create())
                     .build()
             testService = retrofit.create(TestService::class.java)
@@ -58,14 +52,13 @@ internal class RetrofitExceptionHandlerAdapterTest{
     @Test
     fun `assert exception is thrown when client side fails`() = runTest {
         val httpCode = randomInt(min = 300, max = 599)
-        val expectedException =
-            DataException.DataNotFoundException(NetworkException.HttpException(httpCode))
+        val expectedException = NetworkException.HttpException(httpCode)
         enqueueWithBody(httpCode, null)
 
         val actualException = try {
             testService.getUser()
             null
-        } catch (e: DataException.DataNotFoundException){
+        } catch (e: NetworkException.HttpException){
             e
         }
 

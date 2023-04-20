@@ -66,7 +66,8 @@ dependencies {
     // Test
     testImplementation(project(":shared-mock"))
     testImplementation "junit:junit:$jUnit"
-    testImplementation "io.mockk:mockk:$mockk"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlin"
+    testImplementation "org.mockito:mockito-inline:$mockitoKotlinInline"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinCoroutines"
     testImplementation "androidx.test:core-ktx:$kotlinAndroidTest"
     testImplementation "androidx.test.ext:junit:$jUnitAndroidX"

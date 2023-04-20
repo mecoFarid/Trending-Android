@@ -11,28 +11,31 @@ import com.mecofarid.shared.domain.features.trending.domain.model.Trending
 import com.mecofarid.test.anyList
 import com.mecofarid.test.feature.repo.anyTrending
 import com.mecofarid.test.randomInt
-import io.mockk.MockKAnnotations
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.impl.annotations.MockK
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Mock
+import org.mockito.Mockito.times
+import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.any
+import org.mockito.kotlin.never
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 
 
 internal class CacheRepositoryTest {
 
-    @MockK
+    @Mock
     private lateinit var cacheDatasource: Datasource<List<Trending>, DataException>
 
-    @MockK
+    @Mock
     private lateinit var mainDatasource: Datasource<List<Trending>, DataException>
 
     @Before
     fun setUp() {
-        MockKAnnotations.init(this)
+        MockitoAnnotations.openMocks(this)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -42,16 +45,23 @@ internal class CacheRepositoryTest {
         val mainData = Either.Right(anyList { anyTrending() })
         val repository = givenRepository()
         val query = GetAllTrendingQuery()
-        coEvery { mainDatasource.get(query) } returns mainData
-        coEvery { cacheDatasource.put(query, mainData.value) } returns cacheData
-        coEvery { cacheDatasource.get(query) } returns cacheData
+        
+        whenever(mainDatasource.get(query))
+            .thenReturn(mainData)
+        whenever(cacheDatasource.put(query, mainData.value))
+            .thenReturn(cacheData)
+        whenever(cacheDatasource.get(query))
+            .thenReturn(cacheData)
 
-        val actualData  = repository.get(query, Operation.SyncMainOperation)
+        val actualData = repository.get(query, Operation.SyncMainOperation)
 
         assertEquals(cacheData, actualData)
-        coVerify(exactly = 1) { mainDatasource.get(query) }
-        coVerify(exactly = 1) { cacheDatasource.get(query) }
-        coVerify(exactly = 1) { cacheDatasource.put(query, mainData.value) }
+        verify(mainDatasource, times(1))
+            .get(query)
+        verify(cacheDatasource, times(1))
+            .get(query)
+        verify(cacheDatasource, times(1))
+            .put(query, mainData.value)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -69,15 +79,20 @@ internal class CacheRepositoryTest {
         val mainData = Either.Left(mainException)
         val repository = givenRepository()
         val query = GetAllTrendingQuery()
-        coEvery { mainDatasource.get(query) } returns mainData
-        coEvery { cacheDatasource.get(query) } returns cacheData
+        whenever(mainDatasource.get(query))
+            .thenReturn(mainData)
+        whenever(cacheDatasource.get(query))
+            .thenReturn(cacheData)
 
         val actualData = repository.get(query, Operation.SyncMainOperation)
 
         assertEquals(cacheData, actualData)
-        coVerify(exactly = 1) { mainDatasource.get(query) }
-        coVerify(exactly = 0) { cacheDatasource.put(any(), any()) }
-        coVerify(exactly = 1) { cacheDatasource.get(query) }
+        verify(mainDatasource, times(1))
+            .get(query)
+        verify(cacheDatasource, never())
+            .put(any(), any())
+        verify(cacheDatasource, times(1))
+            .get(query)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -92,14 +107,19 @@ internal class CacheRepositoryTest {
             ).random()
         val repository = givenRepository()
         val query = GetAllTrendingQuery()
-        coEvery { cacheDatasource.get(query) } returns successCacheData andThen cacheData
+        whenever(cacheDatasource.get(query))
+            .thenReturn(successCacheData)
+            .thenReturn(cacheData)
 
         val actualData = repository.get(query, Operation.CacheElseSyncMainOperation)
 
         assertEquals(actualData, actualData)
-        coVerify(exactly = 1) { cacheDatasource.get(query) }
-        coVerify(exactly = 0) { cacheDatasource.put(any(), any()) }
-        coVerify(exactly = 0) { mainDatasource.get(query) }
+        verify(cacheDatasource, times(1))
+            .get(query)
+        verify(cacheDatasource, never())
+            .put(any(), any())
+        verify(mainDatasource, never())
+            .get(query)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -110,16 +130,22 @@ internal class CacheRepositoryTest {
         val cacheDataAfterCache = Either.Right(anyList { anyTrending() })
         val repository = givenRepository()
         val query = GetAllTrendingQuery()
-        coEvery { cacheDatasource.get(query) } returns cacheDataInitial
-        coEvery { mainDatasource.get(query) } returns mainData
-        coEvery { cacheDatasource.put(query, mainData.value) } returns cacheDataAfterCache
+        whenever(cacheDatasource.get(query))
+            .thenReturn(cacheDataInitial)
+        whenever(mainDatasource.get(query))
+            .thenReturn(mainData)
+        whenever(cacheDatasource.put(query, mainData.value))
+            .thenReturn(cacheDataAfterCache)
 
-        val actualData  = repository.get(query, Operation.CacheElseSyncMainOperation)
+        val actualData = repository.get(query, Operation.CacheElseSyncMainOperation)
 
         assertEquals(actualData, actualData)
-        coVerify(exactly = 2) { cacheDatasource.get(query) }
-        coVerify(exactly = 1) { mainDatasource.get(query) }
-        coVerify(exactly = 1) { cacheDatasource.put(query, mainData.value) }
+        verify(cacheDatasource, times(2))
+            .get(query)
+        verify(mainDatasource, times(1))
+            .get(query)
+        verify(cacheDatasource, times(1))
+            .put(query, mainData.value)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -128,15 +154,20 @@ internal class CacheRepositoryTest {
         val repository = givenRepository()
         val query = GetAllTrendingQuery()
         val expectedData = Either.Left(DataException.DataNotFoundException())
-        coEvery { cacheDatasource.get(query) } returns expectedData
-        coEvery { mainDatasource.get(query) } returns Either.Left(DataException.DataNotFoundException())
+        whenever(cacheDatasource.get(query))
+            .thenReturn(expectedData)
+        whenever(mainDatasource.get(query))
+            .thenReturn(Either.Left(DataException.DataNotFoundException()))
 
-        val actualData  = repository.get(query, Operation.SyncMainOperation)
-        
+        val actualData = repository.get(query, Operation.SyncMainOperation)
+
         assertEquals(actualData, expectedData)
-        coVerify(exactly = 1) { cacheDatasource.get(query) }
-        coVerify(exactly = 0) { cacheDatasource.put(any(), any()) }
-        coVerify(exactly = 1) { mainDatasource.get(query) }
+        verify(cacheDatasource, times(1))
+            .get(query)
+        verify(cacheDatasource, never())
+            .put(any(), any())
+        verify(mainDatasource, times(1))
+            .get(query)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -145,15 +176,20 @@ internal class CacheRepositoryTest {
         val repository = givenRepository()
         val query = GetAllTrendingQuery()
         val expectedData = Either.Left(DataException.DataNotFoundException())
-        coEvery { cacheDatasource.get(query) } returns expectedData
-        coEvery { mainDatasource.get(query) } returns Either.Left(DataException.DataNotFoundException())
+        whenever(cacheDatasource.get(query))
+            .thenReturn(expectedData)
+        whenever(mainDatasource.get(query))
+            .thenReturn(Either.Left(DataException.DataNotFoundException()))
 
-        val actualData  = repository.get(query, Operation.CacheElseSyncMainOperation)
+        val actualData = repository.get(query, Operation.CacheElseSyncMainOperation)
 
         assertEquals(actualData, expectedData)
-        coVerify(exactly = 2) { cacheDatasource.get(query) }
-        coVerify(exactly = 0) { cacheDatasource.put(any(), any()) }
-        coVerify(exactly = 1) { mainDatasource.get(query) }
+        verify(cacheDatasource, times(2))
+            .get(query)
+        verify(cacheDatasource, never())
+            .put(any(), any())
+        verify(mainDatasource, times(1))
+            .get(query)
     }
 
     private fun givenRepository() = CacheRepository(

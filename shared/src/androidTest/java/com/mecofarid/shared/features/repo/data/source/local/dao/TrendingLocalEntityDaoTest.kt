@@ -9,8 +9,8 @@ import com.mecofarid.shared.domain.features.trending.data.source.local.dao.Trend
 import com.mecofarid.shared.domain.features.trending.data.source.local.entity.TrendingLocalEntity
 import com.mecofarid.shared.libs.db.room.TrendingDatabase
 import com.mecofarid.test.feature.repo.anyTrendingLocalEntity
-import com.mecofarid.trending.anyList
-import com.mecofarid.trending.randomInt
+import com.mecofarid.test.anyList
+import com.mecofarid.test.randomInt
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -57,7 +57,7 @@ internal class TrendingLocalEntityDaoTest {
     }
 
     private fun generateRepoList(): List<TrendingLocalEntity> {
-        var id = 0
+        var id = 0L
         return anyList {
             id++
             anyTrendingLocalEntity().copy(id = id)
