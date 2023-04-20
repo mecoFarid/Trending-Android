@@ -37,7 +37,8 @@
 
 ### Testing
 - JUnit
-- Mockk
+- Mockk ([main](https://github.com/mecoFarid/Trending-Android) branch)
+- Mockito-Kotlin ([mockito-kotlin](https://github.com/mecoFarid/Trending-Android/tree/mockito-kotlin) branch)
 
 ### Code Styling/Analyzing
 - Detekt
