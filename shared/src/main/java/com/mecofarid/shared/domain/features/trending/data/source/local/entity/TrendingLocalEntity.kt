@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class TrendingLocalEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @PrimaryKey val id: String,
     val name: String,
     val language: String?,
     val stargazersCount: Long,

@@ -3,9 +3,8 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
 
-    id 'org.jetbrains.kotlin.plugin.serialization' version "$kotlinSerializationPlugin"
-
     id 'com.google.dagger.hilt.android'
+    id "com.apollographql.apollo3" version "$apolloGraphQl"
 }
 
 android {
@@ -54,14 +53,11 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room"
     kapt "androidx.room:room-compiler:$room"
 
-    // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit"
-    implementation "com.squareup.okhttp3:logging-interceptor:$retrofitLogging"
-    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$retrofitKotlinxSerialization"
+    // OkHttp
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpLogging"
 
-    // KotlinX Serialization
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerialization"
+    // Apollo GraphQL
+    implementation "com.apollographql.apollo3:apollo-runtime:$apolloGraphQl"
 
     // Test
     testImplementation(project(":shared-mock"))
@@ -70,7 +66,6 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinCoroutines"
     testImplementation "androidx.test:core-ktx:$kotlinAndroidTest"
     testImplementation "androidx.test.ext:junit:$jUnitAndroidX"
-    testImplementation "com.squareup.okhttp3:mockwebserver:$okHttp"
     testImplementation "androidx.arch.core:core-testing:$androidArchCore"
 
     androidTestImplementation project(':shared-mock')
@@ -81,4 +76,11 @@ dependencies {
 
 kapt {
     correctErrorTypes true
+}
+
+apollo {
+    service("service") {
+        packageName.set("com.mecofarid.shared")
+        mapScalarToKotlinLong("Long")
+    }
 }

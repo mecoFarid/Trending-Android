@@ -1,64 +1,82 @@
 package com.mecofarid.shared.domain.di.network
 
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.mecofarid.shared.domain.common.data.datasource.network.NetworkService
-import com.mecofarid.shared.domain.features.trending.data.source.remote.entity.TrendingRemoteEntity
-import com.mecofarid.shared.domain.features.trending.data.source.remote.service.TrendingService
-import com.mecofarid.shared.libs.network.client.retrofit.RetrofitExceptionHandlerAdapterFactory
-import com.mecofarid.shared.libs.network.client.retrofit.RetrofitService
+import android.util.Base64
+import com.apollographql.apollo3.ApolloClient
+import com.apollographql.apollo3.interceptor.ApolloInterceptor
+import com.apollographql.apollo3.network.http.DefaultHttpEngine
+import com.apollographql.apollo3.network.http.HttpInterceptor
+import com.mecofarid.shared.libs.network.client.NetworkClient
+import com.mecofarid.shared.libs.network.client.apolloGraphQl.ApolloAuthorizationInterceptor
+import com.mecofarid.shared.libs.network.client.apolloGraphQl.ApolloExceptionHandlerInterceptor
+import com.mecofarid.shared.libs.network.client.apolloGraphQl.AuthHeader
+import com.mecofarid.shared.libs.network.client.apolloGraphQl.X_AUTH_TOKEN
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
-private const val BASE_URL = "https://api.github.com/"
+private const val BASE_URL = "https://api.github.com/graphql"
 private const val READ_WRITE_TIME_OUT = 30L
 private const val CONNECT_TIME_OUT = 30L
-
-private const val JSON_CONTENT_TYPE = "application/json; charset=utf-8"
+private const val BASE64_ENCODED_X_AUTH_TOKEN = "Z2hwXzd5M0JaUmUzMmpscjBGV2NXZUJWVDZVZ0QxbFVOUzBUVzFYMg=="
 
 @InstallIn(SingletonComponent::class)
 @Module
-object NetworkModule {
+interface NetworkModule {
 
-    @OptIn(ExperimentalSerializationApi::class)
-    @Singleton
-    @Provides
-    fun provideRetrofitService(): RetrofitService{
-        val json = Json{
-            ignoreUnknownKeys = true
+    @InstallIn(SingletonComponent::class)
+    @Module
+    object NetworkModuleCompanion {
+        @Singleton
+        @Provides
+        fun provideNetworkClient(
+            authorizationInterceptor: HttpInterceptor,
+            exceptionHandlerInterceptor: ApolloInterceptor,
+        ): NetworkClient {
+            val logging = HttpLoggingInterceptor().apply {
+                setLevel(HttpLoggingInterceptor.Level.BODY)
+            }
+
+            val client = OkHttpClient.Builder()
+                .readTimeout(READ_WRITE_TIME_OUT, TimeUnit.SECONDS)
+                .writeTimeout(READ_WRITE_TIME_OUT, TimeUnit.SECONDS)
+                .connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS)
+                .addInterceptor(logging)
+                .build()
+
+            val apolloClient = ApolloClient.Builder()
+                .serverUrl(BASE_URL)
+                .httpEngine(DefaultHttpEngine(client))
+                .addHttpInterceptor(authorizationInterceptor)
+                .addInterceptor(exceptionHandlerInterceptor)
+                .build()
+
+            return NetworkClient(apolloClient)
         }
 
-        val logging = HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-
-        val client = OkHttpClient.Builder()
-            .readTimeout(READ_WRITE_TIME_OUT, TimeUnit.SECONDS)
-            .writeTimeout(READ_WRITE_TIME_OUT, TimeUnit.SECONDS)
-            .connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS)
-            .addInterceptor(logging)
-            .build()
-
-        val retrofit = Retrofit.Builder()
-            .client(client)
-            .baseUrl(BASE_URL)
-            .addCallAdapterFactory(RetrofitExceptionHandlerAdapterFactory())
-            .addConverterFactory(json.asConverterFactory(JSON_CONTENT_TYPE.toMediaType()))
-            .build()
-
-        return retrofit.create(RetrofitService::class.java)
+        @Singleton
+        @Provides
+        @AuthHeader
+        fun provideAuthHeader(): () -> @JvmSuppressWildcards Map<String, String> = {
+            val bytes = Base64.decode(BASE64_ENCODED_X_AUTH_TOKEN, Base64.DEFAULT)
+            val text = String(bytes, Charsets.UTF_8)
+            mapOf(X_AUTH_TOKEN to text)
+        }
     }
 
-    @Provides
-    fun provideTrendingService(retrofitService: RetrofitService): NetworkService<List<TrendingRemoteEntity>> =
-        TrendingService(retrofitService)
+    @Binds
+    fun bindAuthorizationInterceptor(
+        apolloAuthorizationInterceptor: ApolloAuthorizationInterceptor
+    ): HttpInterceptor
+
+    @Binds
+    fun bindExceptionHandlerInterceptor(
+        apolloExceptionHandlerInterceptor: ApolloExceptionHandlerInterceptor
+    ): ApolloInterceptor
 }

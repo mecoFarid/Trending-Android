@@ -1,14 +1,20 @@
 package com.mecofarid.shared.domain.features.trending.data.source.remote.service
 
+import com.mecofarid.shared.GetTrendingQuery
 import com.mecofarid.shared.domain.common.data.Query
 import com.mecofarid.shared.domain.common.data.datasource.network.NetworkService
 import com.mecofarid.shared.domain.features.trending.data.query.GetAllTrendingQuery
-import com.mecofarid.shared.domain.features.trending.data.source.remote.entity.TrendingRemoteEntity
-import com.mecofarid.shared.libs.network.client.retrofit.RetrofitService
+import com.mecofarid.shared.fragment.TrendingEntity
+import com.mecofarid.shared.libs.network.client.NetworkClient
+import com.mecofarid.shared.type.SearchType
+import javax.inject.Inject
 
-class TrendingService(
-    private val retrofitService: RetrofitService
-): NetworkService<List<TrendingRemoteEntity>> {
+typealias TrendingRemoteEntity = TrendingEntity
+typealias OwnerRemoteEntity = TrendingEntity.Owner
+
+class TrendingService @Inject constructor(
+    private val networkClient: NetworkClient,
+): NetworkService<List<@JvmSuppressWildcards TrendingRemoteEntity>> {
     override suspend fun get(query: Query): List<TrendingRemoteEntity> =
         when (query) {
             is GetAllTrendingQuery -> query.getTrendingList()
@@ -21,5 +27,7 @@ class TrendingService(
     ): List<TrendingRemoteEntity> = throw UnsupportedOperationException("Put is not supported")
 
     private suspend fun GetAllTrendingQuery.getTrendingList(): List<TrendingRemoteEntity> =
-        retrofitService.searchTrending(query).items
+        networkClient
+            .query(GetTrendingQuery(query = query, type = SearchType.REPOSITORY, first = first))
+            .search.repositories.map { it.trendingEntity }
 }

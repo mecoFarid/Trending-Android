@@ -16,11 +16,12 @@ import com.mecofarid.shared.domain.features.trending.data.mapper.OwnerToOwnerLoc
 import com.mecofarid.shared.domain.features.trending.data.mapper.TrendingLocalEntityToTrendingMapper
 import com.mecofarid.shared.domain.features.trending.data.mapper.TrendingRemoteEntityToTrendingMapper
 import com.mecofarid.shared.domain.features.trending.data.mapper.TrendingToTrendingLocalEntityMapper
-
 import com.mecofarid.shared.domain.features.trending.data.source.local.TrendingLocalDatasource
 import com.mecofarid.shared.domain.features.trending.data.source.local.dao.TrendingLocalEntityDao
-import com.mecofarid.shared.domain.features.trending.data.source.remote.entity.TrendingRemoteEntity
+import com.mecofarid.shared.domain.features.trending.data.source.remote.service.TrendingRemoteEntity
+import com.mecofarid.shared.domain.features.trending.data.source.remote.service.TrendingService
 import com.mecofarid.shared.domain.features.trending.domain.model.Trending
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,36 +29,43 @@ import dagger.hilt.components.SingletonComponent
 
 @InstallIn(SingletonComponent::class)
 @Module
-object TrendingModule {
+interface TrendingModule {
 
-    @Provides
-    fun provideTrendingRepository(
-        trendingService: NetworkService<List<TrendingRemoteEntity>>,
-        trendingLocalEntityDao: TrendingLocalEntityDao
-    ): Repository<List<Trending>, DataException> {
-        val networkExceptionMapper = object : Mapper<NetworkException, DataException> {
-            override fun map(input: NetworkException) = DataException.DataNotFoundException(input)
+    @InstallIn(SingletonComponent::class)
+    @Module
+    object TrendingModuleCompanion{
+        @Provides
+        fun provideTrendingRepository(
+            trendingService: NetworkService<List<TrendingRemoteEntity>>,
+            trendingLocalEntityDao: TrendingLocalEntityDao
+        ): Repository<List<Trending>, DataException> {
+            val networkExceptionMapper = object : Mapper<NetworkException, DataException> {
+                override fun map(input: NetworkException) = DataException.DataNotFoundException(input)
+            }
+
+            val mainOutMapper =
+                ListMapper(TrendingRemoteEntityToTrendingMapper(OwnerRemoteEntityToOwnerMapper()))
+            val cacheOutMapper =
+                ListMapper(TrendingLocalEntityToTrendingMapper(OwnerLocalEntityToOwnerMapper()))
+
+            val cacheInMapper =
+                ListMapper(TrendingToTrendingLocalEntityMapper(OwnerToOwnerLocalEntityMapper()))
+
+            val mainDatasource = DatasourceMapper(
+                NetworkDatasource(trendingService, networkExceptionMapper),
+                mainOutMapper,
+                VoidMapper()
+            )
+            val cacheDataSource = DatasourceMapper(
+                TrendingLocalDatasource(trendingLocalEntityDao),
+                cacheOutMapper,
+                cacheInMapper
+            )
+
+            return CacheRepository(cacheDataSource, mainDatasource)
         }
-
-        val mainOutMapper =
-            ListMapper(TrendingRemoteEntityToTrendingMapper(OwnerRemoteEntityToOwnerMapper()))
-        val cacheOutMapper =
-            ListMapper(TrendingLocalEntityToTrendingMapper(OwnerLocalEntityToOwnerMapper()))
-
-        val cacheInMapper =
-            ListMapper(TrendingToTrendingLocalEntityMapper(OwnerToOwnerLocalEntityMapper()))
-
-        val mainDatasource = DatasourceMapper(
-            NetworkDatasource(trendingService, networkExceptionMapper),
-            mainOutMapper,
-            VoidMapper()
-        )
-        val cacheDataSource = DatasourceMapper(
-            TrendingLocalDatasource(trendingLocalEntityDao),
-            cacheOutMapper,
-            cacheInMapper
-        )
-
-        return CacheRepository(cacheDataSource, mainDatasource)
     }
+
+    @Binds
+    fun bindTrendingService(trendingService: TrendingService): NetworkService<List<TrendingRemoteEntity>>
 }

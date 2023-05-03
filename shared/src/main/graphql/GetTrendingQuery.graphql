@@ -1,0 +1,23 @@
+query GetTrendingQuery($query: String!, $type: SearchType!, $first: Int!){
+    search(query: $query, type: $type, first: $first){
+        repositories: nodes {
+            ...TrendingEntity
+        }
+    }
+}
+
+fragment TrendingEntity on Repository{
+    id,
+    name,
+    description,
+    stargazers {
+        totalCount
+    },
+    primaryLanguage {
+        name
+    },
+    owner {
+        login,
+        avatarUrl
+    }
+}

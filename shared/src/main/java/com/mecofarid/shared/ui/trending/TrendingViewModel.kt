@@ -36,14 +36,11 @@ class TrendingViewModel @Inject constructor(private val trendingInteractor: GetT
     private fun loadData(operation: Operation) {
         state = State.Loading
         viewModelScope.launch {
-            println("KOK $operation")
             state = trendingInteractor(GetAllTrendingQuery(), operation)
                 .fold(
                     ifLeft = { State.NoData },
                     ifRight = { State.Success(it) }
                 )
-
-            println("KOK $state")
         }
     }
 

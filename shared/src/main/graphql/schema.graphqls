@@ -1,0 +1,35 @@
+type Query{
+    search(query: String!, type: SearchType!, first: Int!): SearchResults!
+}
+
+enum SearchType{
+    REPOSITORY
+}
+
+type SearchResults{
+    nodes: [Repository!]!
+}
+
+type Repository {
+    id: ID!
+    name: String!
+    description: String
+    stargazers: StargazerCount!
+    primaryLanguage: Language
+    owner: User!
+}
+
+type Language {
+    name: String!
+}
+
+type User {
+    login: String!
+    avatarUrl: String
+}
+
+type StargazerCount {
+    totalCount: Long!
+}
+
+scalar Long
