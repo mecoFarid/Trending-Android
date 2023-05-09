@@ -13,8 +13,12 @@
 #### Data, Business and Presentation layer
 - Kotlin Coroutines
 - Room
-- Retrofit
-- KotlinX Serialization
+- Network 
+    - GraphQL ([graph_ql](https://github.com/mecoFarid/Trending-Android/tree/graph_ql) branch)
+    - REST ([main](https://github.com/mecoFarid/Trending-Android/) branch)
+        - Retrofit
+        - KotlinX Serialization
+  
 - LiveData
 - MVVM pattern
 - Dagger-Hilt ([main](https://github.com/mecoFarid/Trending-Android) branch)
