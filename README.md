@@ -18,7 +18,6 @@
     - REST ([main](https://github.com/mecoFarid/Trending-Android/) branch)
         - Retrofit
         - KotlinX Serialization
-  
 - LiveData
 - MVVM pattern
 - Dagger-Hilt ([main](https://github.com/mecoFarid/Trending-Android) branch)
