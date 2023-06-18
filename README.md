@@ -11,7 +11,9 @@
 ### Production
 
 #### Data, Business and Presentation layer
-- Kotlin Coroutines
+- IO Operations
+    - Kotlin Coroutines ([main](https://github.com/mecoFarid/Trending-Android) branch)
+    - RxJava ([rx_java](https://github.com/mecoFarid/Trending-Android/tree/rx_java) branch)
 - Room
 - Network 
     - GraphQL ([graph_ql](https://github.com/mecoFarid/Trending-Android/tree/graph_ql) branch)
@@ -45,7 +47,3 @@
 
 ### Code Styling/Analyzing
 - Detekt
-
-
-## Result
-
