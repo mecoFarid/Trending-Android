@@ -12,12 +12,12 @@ import com.mecofarid.test.anyList
 import com.mecofarid.test.feature.repo.anyTrending
 import com.mecofarid.test.randomInt
 import io.mockk.MockKAnnotations
-import io.mockk.coEvery
-import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.verify
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import junit.framework.TestCase.assertEquals
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
@@ -35,28 +35,26 @@ internal class CacheRepositoryTest {
         MockKAnnotations.init(this)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `assert data fetched from main and cached when sync-main is requested`() = runTest {
+    fun `assert data fetched from main and cached when sync-main is requested`() {
         val cacheData = Either.Right(anyList { anyTrending() })
         val mainData = Either.Right(anyList { anyTrending() })
         val repository = givenRepository()
         val query = GetAllTrendingQuery()
-        coEvery { mainDatasource.get(query) } returns mainData
-        coEvery { cacheDatasource.put(query, mainData.value) } returns cacheData
-        coEvery { cacheDatasource.get(query) } returns cacheData
+        every { mainDatasource.get(query) } returns Flowable.just(mainData)
+        every { cacheDatasource.put(query, mainData.value) } returns Flowable.just(cacheData)
+        every { cacheDatasource.get(query) } returns Flowable.just(cacheData)
 
-        val actualData  = repository.get(query, Operation.SyncMainOperation)
+        val actualData  = repository.get(query, Operation.SyncMainOperation).blockingFirst()
 
         assertEquals(cacheData, actualData)
-        coVerify(exactly = 1) { mainDatasource.get(query) }
-        coVerify(exactly = 1) { cacheDatasource.get(query) }
-        coVerify(exactly = 1) { cacheDatasource.put(query, mainData.value) }
+        verify(exactly = 1) { mainDatasource.get(query) }
+        verify(exactly = 1) { cacheDatasource.get(query) }
+        verify(exactly = 1) { cacheDatasource.put(query, mainData.value) }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `assert data fetched from cache when sync-main is requested and main data source fails`() = runTest {
+    fun `assert data fetched from cache when sync-main is requested and main data source fails`() {
         val cacheData =
             listOf(
                 Either.Right(anyList { anyTrending() }),
@@ -69,94 +67,90 @@ internal class CacheRepositoryTest {
         val mainData = Either.Left(mainException)
         val repository = givenRepository()
         val query = GetAllTrendingQuery()
-        coEvery { mainDatasource.get(query) } returns mainData
-        coEvery { cacheDatasource.get(query) } returns cacheData
+        every { mainDatasource.get(query) } returns Flowable.just(mainData)
+        every { cacheDatasource.get(query) } returns Flowable.just(cacheData)
 
-        val actualData = repository.get(query, Operation.SyncMainOperation)
+        val actualData = repository.get(query, Operation.SyncMainOperation).blockingFirst()
 
         assertEquals(cacheData, actualData)
-        coVerify(exactly = 1) { mainDatasource.get(query) }
-        coVerify(exactly = 0) { cacheDatasource.put(any(), any()) }
-        coVerify(exactly = 1) { cacheDatasource.get(query) }
+        verify(exactly = 1) { mainDatasource.get(query) }
+        verify(exactly = 0) { cacheDatasource.put(any(), any()) }
+        verify(exactly = 1) { cacheDatasource.get(query) }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `assert data fetched from cache when cache-else-main-sync is requested`() = runTest {
-        val successCacheData = Either.Right(anyList { anyTrending() })
+    fun `assert data fetched from cache when cache-else-main-sync is requested`() {
+        val expectedData = Either.Right(anyList { anyTrending() })
+        val repository = givenRepository()
+        val query = GetAllTrendingQuery()
+        every { cacheDatasource.get(query) } returns Flowable.just(expectedData)
 
-        val cacheData =
+        val actualData = repository.get(query, Operation.CacheElseSyncMainOperation).blockingFirst()
+
+        assertEquals(expectedData, actualData)
+        verify(exactly = 1) { cacheDatasource.get(query) }
+        verify(exactly = 0) { cacheDatasource.put(any(), any()) }
+        verify(exactly = 0) { mainDatasource.get(query) }
+    }
+
+    @Test
+    fun `assert data fetched from main when cache-else-main-sync is requested but cache data source fails`() {
+        val cacheDataInitial = Either.Left(DataException.DataNotFoundException())
+        val mainData = Either.Right(anyList { anyTrending() })
+        val cacheDataAfterCache = Either.Right(anyList { anyTrending() })
+        val expectedData =
             listOf(
                 Either.Right(anyList { anyTrending() }),
                 Either.Left(DataException.DataNotFoundException())
             ).random()
         val repository = givenRepository()
         val query = GetAllTrendingQuery()
-        coEvery { cacheDatasource.get(query) } returns successCacheData andThen cacheData
+        every { cacheDatasource.get(query) } returns Flowable.just(cacheDataInitial) andThen Flowable.just(expectedData)
+        every { mainDatasource.get(query) } returns Flowable.just(mainData)
+        every { cacheDatasource.put(query, mainData.value) } returns Flowable.just(cacheDataAfterCache)
 
-        val actualData = repository.get(query, Operation.CacheElseSyncMainOperation)
+        val actualData  = repository.get(query, Operation.CacheElseSyncMainOperation).blockingFirst()
 
-        assertEquals(actualData, actualData)
-        coVerify(exactly = 1) { cacheDatasource.get(query) }
-        coVerify(exactly = 0) { cacheDatasource.put(any(), any()) }
-        coVerify(exactly = 0) { mainDatasource.get(query) }
+        assertEquals(expectedData, actualData)
+        verify(exactly = 2) { cacheDatasource.get(query) }
+        verify(exactly = 1) { mainDatasource.get(query) }
+        verify(exactly = 1) { cacheDatasource.put(query, mainData.value) }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `assert data fetched from main when cache-else-main-sync is requested but cache data source fails`() = runTest {
-        val cacheDataInitial = Either.Left(DataException.DataNotFoundException())
-        val mainData = Either.Right(anyList { anyTrending() })
-        val cacheDataAfterCache = Either.Right(anyList { anyTrending() })
-        val repository = givenRepository()
-        val query = GetAllTrendingQuery()
-        coEvery { cacheDatasource.get(query) } returns cacheDataInitial
-        coEvery { mainDatasource.get(query) } returns mainData
-        coEvery { cacheDatasource.put(query, mainData.value) } returns cacheDataAfterCache
-
-        val actualData  = repository.get(query, Operation.CacheElseSyncMainOperation)
-
-        assertEquals(actualData, actualData)
-        coVerify(exactly = 2) { cacheDatasource.get(query) }
-        coVerify(exactly = 1) { mainDatasource.get(query) }
-        coVerify(exactly = 1) { cacheDatasource.put(query, mainData.value) }
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    fun `assert error is returned when both data sources fail when main-sync is requested`() = runTest {
+    fun `assert error is returned when both data sources fail when main-sync is requested`() {
         val repository = givenRepository()
         val query = GetAllTrendingQuery()
         val expectedData = Either.Left(DataException.DataNotFoundException())
-        coEvery { cacheDatasource.get(query) } returns expectedData
-        coEvery { mainDatasource.get(query) } returns Either.Left(DataException.DataNotFoundException())
+        every { cacheDatasource.get(query) } returns Flowable.just(expectedData)
+        every { mainDatasource.get(query) } returns Flowable.just(Either.Left(DataException.DataNotFoundException()))
 
-        val actualData  = repository.get(query, Operation.SyncMainOperation)
-        
-        assertEquals(actualData, expectedData)
-        coVerify(exactly = 1) { cacheDatasource.get(query) }
-        coVerify(exactly = 0) { cacheDatasource.put(any(), any()) }
-        coVerify(exactly = 1) { mainDatasource.get(query) }
+        val actualData  = repository.get(query, Operation.SyncMainOperation).blockingFirst()
+
+        assertEquals(expectedData, actualData)
+        verify(exactly = 1) { cacheDatasource.get(query) }
+        verify(exactly = 0) { cacheDatasource.put(any(), any()) }
+        verify(exactly = 1) { mainDatasource.get(query) }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `assert error is returned when both data sources fail when cache-else-main-sync is requested`() = runTest {
+    fun `assert error is returned when both data sources fail when cache-else-main-sync is requested`() {
         val repository = givenRepository()
         val query = GetAllTrendingQuery()
         val expectedData = Either.Left(DataException.DataNotFoundException())
-        coEvery { cacheDatasource.get(query) } returns expectedData
-        coEvery { mainDatasource.get(query) } returns Either.Left(DataException.DataNotFoundException())
+        every { cacheDatasource.get(query) } returns Flowable.just(expectedData)
+        every { mainDatasource.get(query) } returns Flowable.just(Either.Left(DataException.DataNotFoundException()))
 
-        val actualData  = repository.get(query, Operation.CacheElseSyncMainOperation)
+        val actualData  = repository.get(query, Operation.CacheElseSyncMainOperation).blockingFirst()
 
-        assertEquals(actualData, expectedData)
-        coVerify(exactly = 2) { cacheDatasource.get(query) }
-        coVerify(exactly = 0) { cacheDatasource.put(any(), any()) }
-        coVerify(exactly = 1) { mainDatasource.get(query) }
+        assertEquals(expectedData, actualData)
+        verify(exactly = 2) { cacheDatasource.get(query) }
+        verify(exactly = 0) { cacheDatasource.put(any(), any()) }
+        verify(exactly = 1) { mainDatasource.get(query) }
     }
 
     private fun givenRepository() = CacheRepository(
+        Schedulers.trampoline(),
         cacheDatasource,
         mainDatasource
     )

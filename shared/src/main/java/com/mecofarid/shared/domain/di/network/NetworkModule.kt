@@ -24,7 +24,7 @@ private const val BASE_URL = "https://api.github.com/"
 private const val READ_WRITE_TIME_OUT = 30L
 private const val CONNECT_TIME_OUT = 30L
 
-private const val JSON_CONTENT_TYPE = "application/json; charset=utf-8"
+const val JSON_CONTENT_TYPE = "application/json; charset=utf-8"
 
 @InstallIn(SingletonComponent::class)
 @Module

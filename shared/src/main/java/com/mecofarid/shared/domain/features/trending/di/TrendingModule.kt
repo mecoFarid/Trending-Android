@@ -10,13 +10,13 @@ import com.mecofarid.shared.domain.common.data.datasource.network.NetworkDatasou
 import com.mecofarid.shared.domain.common.data.datasource.network.NetworkService
 import com.mecofarid.shared.domain.common.data.repository.Repository
 import com.mecofarid.shared.domain.common.data.repository.cache.CacheRepository
+import com.mecofarid.shared.domain.di.app.IoScheduler
 import com.mecofarid.shared.domain.features.trending.data.mapper.OwnerLocalEntityToOwnerMapper
 import com.mecofarid.shared.domain.features.trending.data.mapper.OwnerRemoteEntityToOwnerMapper
 import com.mecofarid.shared.domain.features.trending.data.mapper.OwnerToOwnerLocalEntityMapper
 import com.mecofarid.shared.domain.features.trending.data.mapper.TrendingLocalEntityToTrendingMapper
 import com.mecofarid.shared.domain.features.trending.data.mapper.TrendingRemoteEntityToTrendingMapper
 import com.mecofarid.shared.domain.features.trending.data.mapper.TrendingToTrendingLocalEntityMapper
-
 import com.mecofarid.shared.domain.features.trending.data.source.local.TrendingLocalDatasource
 import com.mecofarid.shared.domain.features.trending.data.source.local.dao.TrendingLocalEntityDao
 import com.mecofarid.shared.domain.features.trending.data.source.remote.entity.TrendingRemoteEntity
@@ -25,6 +25,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.reactivex.rxjava3.core.Scheduler
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -32,6 +33,7 @@ object TrendingModule {
 
     @Provides
     fun provideTrendingRepository(
+        @IoScheduler scheduler: Scheduler,
         trendingService: NetworkService<List<TrendingRemoteEntity>>,
         trendingLocalEntityDao: TrendingLocalEntityDao
     ): Repository<List<Trending>, DataException> {
@@ -58,6 +60,6 @@ object TrendingModule {
             cacheInMapper
         )
 
-        return CacheRepository(cacheDataSource, mainDatasource)
+        return CacheRepository(scheduler, cacheDataSource, mainDatasource)
     }
 }

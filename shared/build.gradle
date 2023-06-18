@@ -38,8 +38,11 @@ dependencies {
     // Kotlin
     implementation "androidx.core:core-ktx:$kotlin"
 
-    // Kotlin Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines"
+    // Rx Android
+    api "io.reactivex.rxjava3:rxandroid:$rxAndroid"
+    implementation "io.reactivex.rxjava3:rxjava:$rxJava"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx3:$rxCoroutines"
+
 
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelScope"
@@ -51,14 +54,15 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$room"
     implementation "androidx.room:room-ktx:$room"
+    implementation "androidx.room:room-rxjava3:$room"
     annotationProcessor "androidx.room:room-compiler:$room"
     kapt "androidx.room:room-compiler:$room"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit"
     implementation "com.squareup.okhttp3:logging-interceptor:$retrofitLogging"
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$retrofitKotlinxSerialization"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit"
 
     // KotlinX Serialization
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerialization"
@@ -74,7 +78,6 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$androidArchCore"
 
     androidTestImplementation project(':shared-mock')
-    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinCoroutines"
     androidTestImplementation "androidx.test.ext:junit:$jUnitAndroidX"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
 }

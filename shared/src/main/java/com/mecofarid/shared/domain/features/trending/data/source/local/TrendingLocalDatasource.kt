@@ -8,31 +8,40 @@ import com.mecofarid.shared.domain.features.trending.data.TrendingResult
 import com.mecofarid.shared.domain.features.trending.data.query.GetAllTrendingQuery
 import com.mecofarid.shared.domain.features.trending.data.source.local.dao.TrendingLocalEntityDao
 import com.mecofarid.shared.domain.features.trending.data.source.local.entity.TrendingLocalEntity
+import io.reactivex.rxjava3.core.Flowable
 
 class TrendingLocalDatasource(
     private val trendingLocalEntityDao: TrendingLocalEntityDao
 ): Datasource<List<TrendingLocalEntity>, DataException> {
 
-    override suspend fun get(query: Query): TrendingResult<TrendingLocalEntity> = when (query) {
+    override fun get(query: Query): Flowable<TrendingResult<TrendingLocalEntity>> = when (query) {
         is GetAllTrendingQuery -> getAllTrending()
         else -> throw UnsupportedOperationException("Get with query type ($query) is not supported")
     }
 
-    override suspend fun put(
+    override fun put(
         query: Query,
         data: List<TrendingLocalEntity>
-    ): TrendingResult<TrendingLocalEntity> =
+    ): Flowable<TrendingResult<TrendingLocalEntity>> =
         when (query) {
-            is GetAllTrendingQuery -> Either.Right(data).apply {
-                trendingLocalEntityDao.deleteAllTrendingAndInsert(this.value)
+            is GetAllTrendingQuery -> {
+                trendingLocalEntityDao.deleteAllTrendingAndInsert(data)
+                Flowable.just(Either.Right(data))
             }
+
             else -> throw UnsupportedOperationException("Put with query type ($query) is not supported")
         }
 
-    private suspend fun getAllTrending() = with(trendingLocalEntityDao.getAllTrendings()) {
-        return@with if (isEmpty())
-            Either.Left(DataException.DataNotFoundException())
-        else
-            Either.Right(this)
+    private fun getAllTrending(): Flowable<TrendingResult<TrendingLocalEntity>> {
+        val data = trendingLocalEntityDao.getAllTrendings()
+        return data.flatMap {
+            val result =
+                if (it.isEmpty())
+                    Either.Left(DataException.DataNotFoundException())
+                else
+                    Either.Right(it)
+
+            Flowable.just(result)
+        }
     }
 }

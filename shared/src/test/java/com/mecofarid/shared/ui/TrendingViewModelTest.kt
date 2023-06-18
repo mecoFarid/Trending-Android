@@ -14,11 +14,12 @@ import com.mecofarid.test.anyList
 import com.mecofarid.test.feature.repo.anyTrending
 import com.mecofarid.test.randomInt
 import io.mockk.MockKAnnotations
-import io.mockk.coEvery
-import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -49,17 +50,17 @@ internal class TrendingViewModelTest {
         runTest {
             val data = Either.Right(anyList { anyTrending() })
             val expectedStateList = listOf(State.Loading, State.Success(data.value))
-            coEvery {
+            every {
                 getTrendingInteractor(any(), any())
-            } coAnswers  {
+            } returns flow {
                 delay(100)
-                data
+                emit(data)
             }
             val viewModel = givenViewModel()
 
             val actualUiStateList = viewModel.uiState.awaitValues()
 
-            coVerify(exactly = 1) {
+            verify(exactly = 1) {
                 getTrendingInteractor(GetAllTrendingQuery(), Operation.CacheElseSyncMainOperation)
             }
             assertEquals(expectedStateList, actualUiStateList)
@@ -70,17 +71,17 @@ internal class TrendingViewModelTest {
     fun `assert view state updated to loading and then to no_data when view loaded and data is no received`() =
         runTest {
             val expectedStateList = listOf(State.Loading, State.NoData)
-            coEvery {
+            every {
                 getTrendingInteractor(any(), any())
-            } coAnswers {
+            } returns flow {
                 delay(100)
-                Either.Left(DataException.DataNotFoundException())
+                emit(Either.Left(DataException.DataNotFoundException()))
             }
             val viewModel = givenViewModel()
 
             val actualUiStateList = viewModel.uiState.awaitValues()
 
-            coVerify(exactly = 1) {
+            verify(exactly = 1) {
                 getTrendingInteractor(GetAllTrendingQuery(), Operation.CacheElseSyncMainOperation)
             }
             assertEquals(expectedStateList, actualUiStateList)
@@ -97,11 +98,11 @@ internal class TrendingViewModelTest {
                 State.Loading,
                 State.NoData
             )
-            coEvery {
+            every {
                 getTrendingInteractor(any(), any())
-            } coAnswers {
+            } returns flow {
                 delay(dataDelay)
-                Either.Left(DataException.DataNotFoundException())
+                emit(Either.Left(DataException.DataNotFoundException()))
             }
             val viewModel = givenViewModel()
 
@@ -112,7 +113,7 @@ internal class TrendingViewModelTest {
             }
             val actualUiStateList = viewModel.uiState.awaitValues()
 
-            coVerify(exactly = 1) {
+            verify(exactly = 1) {
                 getTrendingInteractor(GetAllTrendingQuery(), Operation.SyncMainOperation)
             }
             assertEquals(expectedStateList, actualUiStateList)
@@ -124,11 +125,11 @@ internal class TrendingViewModelTest {
         val dataDelay = 100L
         val data = Either.Right(anyList { anyTrending() })
         val expectedState = listOf(State.Loading, State.Success(data.value))
-        coEvery {
+        every {
             getTrendingInteractor(any(), any())
-        } coAnswers {
+        } returns flow {
             delay(dataDelay)
-            data
+            emit(data)
         }
         val viewModel = givenViewModel()
 
@@ -141,7 +142,7 @@ internal class TrendingViewModelTest {
         }
         val actualUiStateList = viewModel.uiState.awaitValues()
 
-        coVerify(exactly = 1) {
+        verify(exactly = 1) {
             getTrendingInteractor(GetAllTrendingQuery(), Operation.CacheElseSyncMainOperation)
         }
         assertEquals(expectedState, actualUiStateList)

@@ -8,11 +8,9 @@ import androidx.test.filters.SmallTest
 import com.mecofarid.shared.domain.features.trending.data.source.local.dao.TrendingLocalEntityDao
 import com.mecofarid.shared.domain.features.trending.data.source.local.entity.TrendingLocalEntity
 import com.mecofarid.shared.libs.db.room.TrendingDatabase
+import com.mecofarid.test.anyList
 import com.mecofarid.test.feature.repo.anyTrendingLocalEntity
-import com.mecofarid.trending.anyList
-import com.mecofarid.trending.randomInt
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
+import com.mecofarid.test.randomInt
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -38,9 +36,8 @@ internal class TrendingLocalEntityDaoTest {
         db.close()
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun assert_persisted_and_fetched_repos_are_the_same() = runTest {
+    fun assert_persisted_and_fetched_repos_are_the_same() {
         val expectedRepos = generateRepoList().sortedBy {
             it.id
         }
@@ -49,7 +46,7 @@ internal class TrendingLocalEntityDaoTest {
             repoDao.deleteAllTrendingAndInsert(expectedRepos)
         }
 
-        val actualRepos = repoDao.getAllTrendings().sortedBy {
+        val actualRepos = repoDao.getAllTrendings().blockingFirst().sortedBy {
             it.id
         }
 
@@ -57,7 +54,7 @@ internal class TrendingLocalEntityDaoTest {
     }
 
     private fun generateRepoList(): List<TrendingLocalEntity> {
-        var id = 0
+        var id = 0L
         return anyList {
             id++
             anyTrendingLocalEntity().copy(id = id)

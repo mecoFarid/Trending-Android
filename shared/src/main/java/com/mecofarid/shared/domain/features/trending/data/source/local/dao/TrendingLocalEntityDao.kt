@@ -5,22 +5,23 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import com.mecofarid.shared.domain.features.trending.data.source.local.entity.TrendingLocalEntity
+import io.reactivex.rxjava3.core.Flowable
 
 @Dao
 interface TrendingLocalEntityDao {
 
     @Query("SELECT * FROM trendinglocalentity")
-    suspend fun getAllTrendings(): List<TrendingLocalEntity>
+    fun getAllTrendings(): Flowable<List<TrendingLocalEntity>>
 
     @Transaction
-    suspend fun deleteAllTrendingAndInsert(entityList: List<TrendingLocalEntity>) {
+    fun deleteAllTrendingAndInsert(entityList: List<TrendingLocalEntity>) {
         deleteAll()
         insertAll(entityList)
     }
 
     @Query("DELETE FROM trendinglocalentity")
-    suspend fun deleteAll()
+    fun deleteAll()
 
     @Insert
-    suspend fun insertAll(users: List<TrendingLocalEntity>)
+    fun insertAll(users: List<TrendingLocalEntity>)
 }

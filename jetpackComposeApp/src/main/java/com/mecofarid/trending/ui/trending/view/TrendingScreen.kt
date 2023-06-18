@@ -34,6 +34,7 @@ import com.mecofarid.trending.common.ui.libs.shimmer.customShimmer
 import com.mecofarid.trending.common.ui.preview.SystemUiPreview
 import com.mecofarid.trending.common.ui.resources.Dimens
 import com.mecofarid.trending.common.ui.resources.TrendingTheme
+import io.reactivex.rxjava3.core.Flowable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -175,10 +176,10 @@ fun PreviewLoading(){
 @Composable
 fun PreviewTrendingScreen(){
     val repository = object: Repository<List<Trending>, DataException>{
-        override suspend fun get(
+        override fun get(
             query: Query,
             operation: Operation
-        ): Either<DataException, List<Trending>> = Either.Right(anyList { anyTrending() })
+        ): Flowable<Either<DataException, List<Trending>>> = Flowable.just(Either.Right(anyList { anyTrending() }))
 
     }
     val  viewModel = TrendingViewModel(GetTrendingInteractor(repository))
